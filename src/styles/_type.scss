@@ -34,11 +34,11 @@
   }
   
   $font-weight-thin: 300;
-  $font-weight-normal: 400;
+  $font-weight-normal: 500;
   $font-weight-bold: 700;
   
-  $font-family-body: sans-serif;
-  $font-family-headline: sans-serif;
+  $font-family-body: gt-haptik, sans-serif;
+  $font-family-headline: gt-haptik, sans-serif;
   $font-family-mono: monospace;
   
   @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {
@@ -52,7 +52,7 @@
     @include _compoundFont($family, $weight);
   }
   
-  @mixin headlineFont($family: $font-family-headline, $weight: $font-weight-bold) {
+  @mixin headlineFont($family: $font-family-headline, $weight: $font-weight-normal) {
     @include _compoundFont($family, $weight);
   }
   
