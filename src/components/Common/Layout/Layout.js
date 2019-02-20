@@ -23,6 +23,7 @@ class Layout extends React.Component {
 
     return (
       <div className={cls}>
+        <p className="layout__logo">Friends of Kerouac</p>
         { children }
       </div>
     );

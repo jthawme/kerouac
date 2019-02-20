@@ -21,15 +21,9 @@ h1,
 h2,
 h3 {
     @include headlineFont;
-}
+    @include type-size-tier-two;
 
-h1 {
-    @include font-size-x-large;
-}
-
-h2,
-h3 {
-    @include font-size-large;
+    margin: 0;
 }
 
 button,

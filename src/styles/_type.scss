@@ -1,61 +1,83 @@
 @mixin font-size-small() {
-    font-size: rem(12);
-    line-height: rem(19);
+  font-size: rem(12);
+  line-height: rem(19);
+}
+
+@mixin font-size-regular() {
+  font-size: rem(16);
+  line-height: 1.6;
+}
+
+@mixin font-size-large() {
+  font-size: rem(24);
+  line-height: rem(28);
+}
+
+@mixin font-size-x-large() {
+  font-size: rem(32);
+  line-height: rem(32);
+}
+
+@mixin font-size-xx-large() {
+  font-size: rem(48);
+  line-height: rem(44);
+}
+
+@mixin font-size-xxx-large() {
+  font-size: rem(64);
+  line-height: rem(56);
+}
+
+@mixin font-size-xxxx-large() {
+  font-size: rem(96);
+  line-height: rem(80);
+}
+
+
+@mixin type-size-tier-one {
+  font-size: rem(9);
+  line-height: rem(14);
+}
+
+@mixin type-size-tier-two {
+  font-size: rem(16);
+  line-height: rem(22);
+}
+
+@mixin type-size-tier-three {
+  font-size: rem(36);
+  line-height: rem(38);
+}
+
+@mixin type-size-tier-four {
+  font-size: rem(72);
+  line-height: rem(86);
+}
+
+
+$font-weight-thin: 300;
+$font-weight-normal: 500;
+$font-weight-bold: 700;
+
+$font-family-body: gt-haptik, sans-serif;
+$font-family-headline: gt-haptik, sans-serif;
+$font-family-mono: monospace;
+
+@mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {
+  font: {
+    family: $family;
+    weight: $weight;
   }
-  
-  @mixin font-size-regular() {
-    font-size: rem(16);
-    line-height: 1.6;
-  }
-  
-  @mixin font-size-large() {
-    font-size: rem(24);
-    line-height: rem(28);
-  }
-  
-  @mixin font-size-x-large() {
-    font-size: rem(32);
-    line-height: rem(32);
-  }
-  
-  @mixin font-size-xx-large() {
-    font-size: rem(48);
-    line-height: rem(44);
-  }
-  
-  @mixin font-size-xxx-large() {
-    font-size: rem(64);
-    line-height: rem(56);
-  }
-  
-  @mixin font-size-xxxx-large() {
-    font-size: rem(96);
-    line-height: rem(80);
-  }
-  
-  $font-weight-thin: 300;
-  $font-weight-normal: 500;
-  $font-weight-bold: 700;
-  
-  $font-family-body: gt-haptik, sans-serif;
-  $font-family-headline: gt-haptik, sans-serif;
-  $font-family-mono: monospace;
-  
-  @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {
-    font: {
-      family: $family;
-      weight: $weight;
-    }
-  }
-  
-  @mixin bodyFont($family: $font-family-body, $weight: $font-weight-normal) {
-    @include _compoundFont($family, $weight);
-  }
-  
-  @mixin headlineFont($family: $font-family-headline, $weight: $font-weight-normal) {
-    @include _compoundFont($family, $weight);
-  }
-  
-  @mixin codeFont($family: $font-family-mono, $weight: $font-weight-normal) {
-    @include _compoundFont($family, $weight);
-  }
+}
+
+@mixin bodyFont($family: $font-family-body, $weight: $font-weight-normal) {
+  @include _compoundFont($family, $weight);
+}
+
+@mixin headlineFont($family: $font-family-headline, $weight: $font-weight-normal) {
+  @include _compoundFont($family, $weight);
+}
+
+@mixin codeFont($family: $font-family-mono, $weight: $font-weight-normal) {
+  @include _compoundFont($family, $weight);
+}
