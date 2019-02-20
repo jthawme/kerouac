@@ -1,0 +1,7 @@
+@import '../../styles/base';
+
+.home {
+  @include global-padding-top(2.5);
+  @include global-padding-left;
+  @include global-padding-right;
+}

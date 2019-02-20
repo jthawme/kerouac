@@ -1,19 +1,7 @@
 import React from "react"
-import { Link } from "gatsby"
 
-import Image from "../components/Common/Image/Image";
-import SEO from "../components/Common/SEO/SEO";
-import Page from "../components/Common/Page/Page";
+import About from "../components/About/About";
 
-const IndexPage = () => (
-  <Page>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+const AboutPage = () => <About />;
 
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/">Go home</Link>
-  </Page>
-)
-
-export default IndexPage
+export default AboutPage

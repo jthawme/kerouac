@@ -1,15 +1,31 @@
-@mixin global-top {
-  top: rem($global-padding);
+@mixin global-top($multi: 1) {
+  top: rem($global-padding * $multi);
 }
 
-@mixin global-bottom {
-  bottom: rem($global-padding);
+@mixin global-bottom($multi: 1) {
+  bottom: rem($global-padding * $multi);
 }
 
-@mixin global-left {
-  left: rem($global-padding);
+@mixin global-left($multi: 1) {
+  left: rem($global-padding * $multi);
 }
 
-@mixin global-right {
-  right: rem($global-padding);
+@mixin global-right($multi: 1) {
+  right: rem($global-padding * $multi);
+}
+
+@mixin global-padding-top($multi: 1) {
+  padding-top: rem($global-padding * $multi);
+}
+
+@mixin global-padding-bottom($multi: 1) {
+  padding-bottom: rem($global-padding * $multi);
+}
+
+@mixin global-padding-left($multi: 1) {
+  padding-left: rem($global-padding * $multi);
+}
+
+@mixin global-padding-right($multi: 1) {
+  padding-right: rem($global-padding * $multi);
 }
