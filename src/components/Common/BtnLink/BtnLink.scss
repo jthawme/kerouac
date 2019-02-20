@@ -1,0 +1,46 @@
+@import '../../../styles/base';
+
+.btnlink {
+  position: relative;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  color: inherit;
+  cursor: pointer;
+
+  outline: 0;
+
+  &--button {
+    margin-top: rem(1px);
+  }
+
+  &::after {
+    position: absolute;
+
+    top: calc(100% + #{rem(2px)});
+    left: 0;
+
+    width: 100%;
+    height: rem(2px);
+
+    background-color: currentColor;
+    content: '';
+
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &:focus-visible,
+  &.focus-visible {
+    color: red;
+  }
+}

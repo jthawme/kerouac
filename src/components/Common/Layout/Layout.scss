@@ -2,5 +2,35 @@
 @import '../../../styles/defaults';
 
 .layout {
-  font-family: inherit;
+  width: 100%;
+
+  &__search,
+  &__logo,
+  &__link {
+    position: fixed;
+
+    z-index: 10;
+  }
+
+  &__search {
+    @include global-top;
+    @include global-left;
+  }
+
+  &__logo {
+    @include global-top;
+
+    left: 50%;
+
+    margin: 0;
+
+    text-align: center;
+
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  &__link {
+    @include global-bottom;
+    @include global-left;
+  }
 }

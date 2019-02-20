@@ -1,0 +1,15 @@
+@mixin global-top {
+  top: rem($global-padding);
+}
+
+@mixin global-bottom {
+  bottom: rem($global-padding);
+}
+
+@mixin global-left {
+  left: rem($global-padding);
+}
+
+@mixin global-right {
+  right: rem($global-padding);
+}
