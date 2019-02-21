@@ -1,0 +1,8 @@
+@import '../../styles/base';
+
+.person {
+  @include global-padding-top(2);
+  @include global-padding-right;
+  @include global-padding-bottom;
+  @include global-padding-left;
+}

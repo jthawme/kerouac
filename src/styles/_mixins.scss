@@ -29,3 +29,31 @@
 @mixin global-padding-right($multi: 1) {
   padding-right: rem($global-padding * $multi);
 }
+
+@mixin global-margin-top($multi: 1) {
+  margin-top: rem($global-padding * $multi);
+}
+
+@mixin global-margin-bottom($multi: 1) {
+  margin-bottom: rem($global-padding * $multi);
+}
+
+@mixin global-margin-left($multi: 1) {
+  margin-left: rem($global-padding * $multi);
+}
+
+@mixin global-margin-right($multi: 1) {
+  margin-right: rem($global-padding * $multi);
+}
+
+@mixin grid($cols: 12) {
+  display: grid;
+
+  grid-template-columns: repeat($cols, 1fr);
+  grid-column-gap: rem($global-gutter);
+}
+
+@mixin column($start, $span: 1) {
+  grid-column-start: $start;
+  grid-column-end: span $span;
+}

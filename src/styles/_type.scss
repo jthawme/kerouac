@@ -23,7 +23,7 @@ $font-family-mono: monospace;
 
 @mixin type-size-tier-four {
   font-size: rem(72);
-  line-height: rem(86);
+  line-height: rem(64);
 }
 
 @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {

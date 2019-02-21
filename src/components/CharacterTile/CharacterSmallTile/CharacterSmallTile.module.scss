@@ -1,0 +1,25 @@
+@import '../../../styles/base';
+
+.root {
+  grid-auto-rows: min-content;
+}
+
+.image {
+
+}
+
+.text {
+  margin: rem($global-padding / 3) 0 0;
+}
+
+.title {
+  @include type-size-tier-three;
+
+  margin: 0;
+}
+
+.subtitle {
+  @include type-size-tier-two;
+
+  margin: 0;
+}

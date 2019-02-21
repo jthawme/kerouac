@@ -1,0 +1,44 @@
+@import '../../../styles/base';
+
+.root {
+  @include grid(8);
+}
+
+.image {
+  @include column(5, 4);
+
+  .alt & {
+    @include column(1, 4);
+
+    order: 1;
+  }
+}
+
+.text {
+  @include column(1, 4);
+
+  margin-top: 20%;
+  text-align: right;
+
+  .alt & {
+    @include column(5, 4);
+
+    order: 2;
+
+    text-align: left;
+  }
+}
+
+.title {
+  @include type-size-tier-four;
+
+  margin: 0;
+
+  word-spacing: rem(99999px);
+}
+
+.subtitle {
+  @include type-size-tier-two;
+
+  margin: rem($global-padding / 4) 0 0;
+}

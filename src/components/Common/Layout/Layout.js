@@ -15,7 +15,51 @@ import BtnLink from '../BtnLink/BtnLink';
 // CSS, Requires
 import "./Layout.scss";
 
+const TOP_THRESHOLD = 100;
+
 class Layout extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      top: true
+    };
+
+    this.onScroll = this.onScroll.bind(this);
+    this.scrollY = 0;
+    this.ticking = false;
+  }
+
+  componentDidMount() {
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
+    document.addEventListener('scroll', this.onScroll, {
+      passive: true
+    });
+  }
+
+  onScroll() {
+    this.scrollY = window.scrollY;
+    this.requestTick();
+  }
+
+  checkTop() {
+    this.setState({
+      top: (this.scrollY < TOP_THRESHOLD)
+    }, () => {
+      this.ticking = false;
+    });
+  }
+
+  requestTick() {
+    if (!this.ticking) {
+      window.requestAnimationFrame(() => this.checkTop());
+      this.ticking = true;
+    }
+  };
+
   getLink(path) {
     switch (path) {
       case 'about':
@@ -33,9 +77,13 @@ class Layout extends React.Component {
 
   render() {
     const { children } = this.props;
+    const { top } = this.state;
 
     const cls = classNames(
-      'layout'
+      'layout',
+      {
+        'layout--not-top': !top
+      }
     );
 
     const { href, text } = this.getLink(this.props['*']);
