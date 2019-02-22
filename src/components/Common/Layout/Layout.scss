@@ -42,10 +42,8 @@
   &__selector {
     z-index: 9;
 
-    top: 50%;
+    top: 0;
     left: 0;
-
-    transform: translate3d(0, -50%, 0);
   }
 
   &__link {

@@ -20,6 +20,7 @@ export const query = graphql`
       list: edges {
         node {
           id,
+          priority,
           image {
             medium: childImageSharp {
               fluid(maxWidth: 600, grayscale: true) {
@@ -66,7 +67,6 @@ export const query = graphql`
             big_sur
             satori_in_paris
           },
-          title,
           fields {
             slug
           }

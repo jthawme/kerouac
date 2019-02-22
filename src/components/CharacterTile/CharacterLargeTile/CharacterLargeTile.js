@@ -10,15 +10,15 @@ import { Link } from 'gatsby';
 import styles from "./CharacterLargeTile.module.scss";
 
 const CharacterLargeTile = ({ className, image, displayName, name, alt, style, slug }) => (
-    <Link to={ slug } className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={style}>
-      <div className={styles.text}>
+    <div className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={style}>
+      <Link to={ slug } className={styles.text}>
         <p className={styles.title}>{ displayName }</p>
         { displayName ? <p className={styles.subtitle}>{ name }</p> : null }
-      </div>
-      <div className={styles.image}>
+      </Link>
+      <Link to={ slug } className={styles.image}>
         { image }
-      </div>
-    </Link>
+      </Link>
+    </div>
 );
 
 CharacterLargeTile.propTypes = {

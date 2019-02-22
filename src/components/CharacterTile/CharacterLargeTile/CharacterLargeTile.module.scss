@@ -3,7 +3,8 @@
 .root {
   @include grid;
 
-  text-decoration: none;
+  align-items: flex-start;
+
   color: $color-text;
 }
 
@@ -16,6 +17,9 @@
 
   margin-top: 20%;
   text-align: right;
+  text-decoration: none;
+
+  color: inherit;
 }
 
 .title {

@@ -5,20 +5,50 @@
 }
 
 .list {
+  position: fixed;
+
+  top: 50%;
+  left: 0;
+
   list-style: none;
 
   padding: 0;
   margin: 0;
+
+  transform: translate3d(0, -50%, 0);
 }
 
 .item {
-  padding: rem($global-gutter / 4) 0;
+  color: $color-text-light;
+
+  &.active {
+    color: $color-text;
+  }
+
+  &:not(.active):hover,
+  &:not(.active) .button:focus,
+  &:not(.active) .button:active {
+    .line {
+      transform: scaleX(0.75);
+    }
+  }
 }
 
 .button {
   display: flex;
 
   align-items: center;
+
+  padding: rem($global-gutter / 4) 0;
+
+  cursor: pointer;
+
+  pointer-events: none;
+outline: none;
+
+  .engaged & {
+    pointer-events: all;
+  }
 }
 
 .line {
@@ -27,5 +57,33 @@
 
   margin-right: rem($global-gutter);
 
-  background: $color-text;
+  background: currentColor;
+
+  transform: scaleX(0.5);
+  transform-origin: center right;
+
+  transition: {
+    duration: 0.25s;
+    property: transform;
+  }
+
+  .active & {
+    transform: scaleX(1);
+  }
+}
+
+.label {
+  @include type-size-tier-one;
+
+  opacity: 0;
+
+  transition: {
+    duration: 0.25s;
+    property: opacity;
+  }
+
+  .active &,
+  .engaged & {
+    opacity: 1;
+  }
 }

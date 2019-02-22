@@ -1,5 +1,5 @@
-export const FOO = 'FOO';
+export const SET_FILTER = 'SET_FILTER';
 
-export function foo(bar) {
-  return { type: FOO, bar };
+export function setFilter(filter) {
+  return { type: SET_FILTER, filter };
 }

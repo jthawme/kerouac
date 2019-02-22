@@ -21,24 +21,66 @@ const getPlacement = (total, span, prefix = 0) => {
   return `${ rand } / span ${span}`;
 };
 
+export const PRIORITY = {
+  LARGE: 0,
+  MEDIUM: 1,
+  SMALL: 2
+};
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    const filter = 'on_the_road';
-    const top = 3;
+    const { top, list } = this.getList(props.people.list, props.filter);
 
     this.state = {
       top,
-      filter,
-      list: props.people.list
-        .filter((person) => this.filterPeople(person, filter))
-        .map((person, index) => this.templatePeople(person, index, top))
+      filter: props.filter,
+      list
     };
 
     this.filterPeople = this.filterPeople.bind(this);
     this.renderPeople = this.renderPeople.bind(this);
     this.renderSmallPeople = this.renderSmallPeople.bind(this);
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.filter !== this.props.filter) {
+      const { top, list } = this.getList(this.props.people.list, this.props.filter);
+      this.setState({ top, list });
+    }
+  }
+
+  getList(list, filter) {
+    const filtered = list.filter((person) => this.filterPeople(person, filter));
+    const top = filtered.reduce((prev, curr) => {
+      if (curr.node.priority <= PRIORITY.MEDIUM) {
+        return prev + 1;
+      }
+
+      return prev;
+    }, 0);
+
+    console.log(top);
+
+    filtered.sort(this.orderPeople);
+
+    return {
+      top,
+      list: filtered.map((person, index) => this.templatePeople(person, index, top))
+    };
+  }
+
+  orderPeople(person1, person2) {
+    if (person1.node.priority < person2.node.priority) {
+      return -1;
+    }
+
+    if (person1.node.priority > person2.node.priority) {
+      return 1;
+    }
+
+    return 0;
   }
 
   templatePeople(person, index, top) {
@@ -72,7 +114,7 @@ class Home extends React.Component {
   }
 
   filterPeople(person, filter) {
-    return (filter in person.node.appearances);
+    return (filter in person.node.appearances && person.node.appearances[filter]);
   }
 
   renderPeople(person, index) {
@@ -85,7 +127,7 @@ class Home extends React.Component {
             marginTop: `${index !== 0 ? person.marginTop * 3 : 0}rem`
           }}
           size={size}
-          filter={this.state.filter}
+          filter={this.props.filter}
           alt={index % 2 !== 0}
           {...person.node}/>
       </div>
@@ -108,7 +150,7 @@ class Home extends React.Component {
             marginTop: `${person.marginTop * 8}rem`
           }}
           {...person.node}
-          filter={this.state.filter}/>
+          filter={this.props.filter}/>
         {
           next < list.length ? (
             <CharacterTile
@@ -117,7 +159,7 @@ class Home extends React.Component {
                 marginTop: `${list[next].marginTop * 8}rem`
               }}
               {...list[next].node}
-              filter={this.state.filter}/>
+              filter={this.props.filter}/>
           ) : null
         }
       </div>
@@ -155,6 +197,7 @@ Home.defaultProps = {
 
 const mapStateToProps = (store) => {
   return {
+    filter: store.app.filter
   };
 };
 
