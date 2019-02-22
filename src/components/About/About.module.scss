@@ -1,0 +1,68 @@
+@import '../../styles/base';
+
+.root {
+  @include global-padding-top(3);
+  @include global-padding-right;
+  @include global-padding-left;
+}
+
+.grid {
+  @include grid;
+}
+
+.header {
+  align-items: flex-start;
+
+  &Title {
+    @include type-size-tier-four;
+    @include global-padding-top;
+
+    text-align: right;
+  }
+
+  &TitleArea {
+    @include column(2, 4);
+  }
+
+  &Subtitle {
+    padding: 0;
+    text-align: right;
+  }
+
+  &Description {
+    @include column(7, 4);
+  }
+}
+
+.sources {
+  @include global-padding-top;
+
+  &Title,
+  &List {
+    @include column(2, 9);
+  }
+
+  &Title {
+    @include type-size-tier-three;
+    @include global-padding-bottom(0.5);
+  }
+
+  &List {
+    @include grid(3);
+  }
+
+  &Link {
+    text-align: left;
+  }
+}
+
+.quote {
+  @include global-padding-top;
+
+  &Text {
+    @include type-size-tier-four;
+    @include column(2, 10);
+
+    padding: 0;
+  }
+}

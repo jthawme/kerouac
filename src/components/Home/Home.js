@@ -61,8 +61,6 @@ class Home extends React.Component {
       return prev;
     }, 0);
 
-    console.log(top);
-
     filtered.sort(this.orderPeople);
 
     return {

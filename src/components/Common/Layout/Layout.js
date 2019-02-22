@@ -12,9 +12,11 @@ import 'focus-visible';
 // Components
 import BtnLink from '../BtnLink/BtnLink';
 import BookSelector from '../BookSelector/BookSelector';
+import Search from '../../Search/Search';
 
 // CSS, Requires
 import "./Layout.scss";
+import { StaticQuery, graphql } from 'gatsby';
 
 const TOP_THRESHOLD = 100;
 
@@ -23,7 +25,8 @@ class Layout extends React.Component {
     super(props);
 
     this.state = {
-      top: true
+      top: true,
+      searchBox: false
     };
 
     this.onScroll = this.onScroll.bind(this);
@@ -76,9 +79,21 @@ class Layout extends React.Component {
     }
   }
 
+  onRequestSearchOpen = () => {
+    this.setState({
+      searchBox: true
+    });
+  }
+
+  onRequestSearchClose = () => {
+    this.setState({
+      searchBox: false
+    });
+  }
+
   render() {
     const { children } = this.props;
-    const { top } = this.state;
+    const { top, searchBox } = this.state;
 
     const cls = classNames(
       'layout',
@@ -93,7 +108,7 @@ class Layout extends React.Component {
       <div className={cls}>
         <BtnLink
           className="layout__search"
-          onClick={() => console.log('hiya')}>
+          onClick={this.onRequestSearchOpen}>
           Type to search...
         </BtnLink>
 
@@ -107,6 +122,48 @@ class Layout extends React.Component {
           to={ href }>
           { text }
         </BtnLink>
+
+        <StaticQuery
+          query={graphql`
+            {
+              people: allPersonYaml {
+                edges {
+                  node {
+                    id,
+                    name,
+                    appearances {
+                      on_the_road
+                      the_subterraneans
+                      desolation_angels
+                      the_town_and_the_city
+                      vanity_of_duluoz
+                      visions_of_cody
+                      the_dharma_bums
+                      big_sur
+                      visions_of_gerard
+                      doctor_sax
+                      maggie_cassidy
+                      tristessa
+                      satori_in_paris
+                      the_subterranean
+                    }
+                    fields {
+                      slug
+                    }
+                  }
+                }
+              }
+            }
+          `}
+          render={({ people }) => (
+            <Search
+              people={people}
+              open={searchBox}
+              onRequestOpen={this.onRequestSearchOpen}
+              onRequestClose={this.onRequestSearchClose}
+              className="layout__search-box"/>
+          )}
+        />
 
         { children }
       </div>

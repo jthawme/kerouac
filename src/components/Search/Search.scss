@@ -1,0 +1,118 @@
+@import '../../styles/base';
+
+.search {
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: {
+    duration: 0.25s;
+    property: opacity, visibility;
+  };
+
+  background-color: rgba(255, 255, 255, 0.98);
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__title {
+    @include global-top;
+    @include global-left;
+    @include type-size-tier-two;
+
+    position: absolute;
+  }
+
+  &__close {
+    @include global-top;
+    @include global-right;
+
+    position: absolute;
+  }
+
+  &__content {
+    @include global-padding-top(1.5);
+    @include global-padding-right;
+    @include global-padding-bottom;
+    @include global-padding-left;
+    @include grid;
+
+    grid-template-rows: 100%;
+
+    align-items: center;
+
+    height: 100%;
+
+    &__input-box {
+      grid-column: 1 / span 6;
+    }
+
+    &__results {
+      grid-column: 7 / span 6;
+
+      max-height: 100%;
+
+      padding: rem(20px) 0 0;
+      margin: 0;
+
+      list-style: none;
+
+      overflow: auto;
+    }
+
+    &__input {
+      @include type-size-tier-four;
+
+      width: 100%;
+
+      padding: rem(2px) 0 rem(4px);
+
+      outline: 0;
+
+      &:focus {
+        padding-bottom: rem(2px);
+        border-bottom: rem(2px) solid $color-text;
+      }
+
+      &::placeholder {
+        color: $color-text-light;
+      }
+    }
+  }
+}
+
+.search-item {
+  @include global-margin-top;
+  @include global-margin-bottom;
+
+  display: flex;
+  flex-direction: column;
+
+  &__link {
+    text-decoration: none;
+    color: $color-text;
+  }
+
+  &__title,
+  &__type {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__title {
+    @include type-size-tier-three;
+  }
+
+  &__type {
+    @include type-size-tier-two;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+}

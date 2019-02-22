@@ -12,7 +12,7 @@ $font-family-mono: monospace;
 }
 
 $type-size-tier-two-font-size: 16;
-$type-size-tier-two-line-height: 22;
+$type-size-tier-two-line-height: 24;
 @mixin type-size-tier-two {
   font-size: rem($type-size-tier-two-font-size);
   line-height: rem($type-size-tier-two-line-height);
@@ -25,7 +25,7 @@ $type-size-tier-two-line-height: 22;
 
 @mixin type-size-tier-four {
   font-size: rem(72);
-  line-height: rem(64);
+  line-height: rem(72);
 }
 
 @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {

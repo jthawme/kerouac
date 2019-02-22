@@ -9,9 +9,11 @@ import Img from 'gatsby-image';
 import Markdown from 'react-markdown';
 
 // Redux
+import { setFilter } from '../../state/actions/app';
 
 // Components
 import SEO from '../Common/SEO/SEO';
+import BtnLink from '../Common/BtnLink/BtnLink';
 
 // CSS, Requires
 import styles from "./Person.module.scss";
@@ -24,7 +26,7 @@ class Person extends React.Component {
         return (
           <li className={styles.appearanceItem} key={a}>
             <p className={styles.appearanceItemName}>{ appearances[a] }</p>
-            <p className={styles.appearanceItemBook}>{ getBookName(a) }</p>
+            <BtnLink to={`/#${a}`} className={styles.appearanceItemBook}>{ getBookName(a) }</BtnLink>
           </li>
         )
       }
@@ -35,8 +37,6 @@ class Person extends React.Component {
 
   render() {
     const { className, image, name, title, location, description, appearances } = this.props;
-
-    console.log(this.props);
 
     const cls = classNames(
       className,
@@ -77,7 +77,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-
+    setFilter
   }, dispatch);
 };
 
