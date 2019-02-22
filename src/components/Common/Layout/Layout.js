@@ -11,6 +11,7 @@ import 'focus-visible';
 
 // Components
 import BtnLink from '../BtnLink/BtnLink';
+import BookSelector from '../BookSelector/BookSelector';
 
 // CSS, Requires
 import "./Layout.scss";
@@ -97,6 +98,9 @@ class Layout extends React.Component {
         </BtnLink>
 
         <BtnLink to="/" className="layout__logo">Friends of Kerouac</BtnLink>
+
+        <BookSelector
+          className="layout__selector"/>
 
         <BtnLink
           className="layout__link"

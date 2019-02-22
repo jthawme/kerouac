@@ -1,0 +1,31 @@
+@import '../../../styles/base';
+
+.root {
+  font-family: inherit;
+}
+
+.list {
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: rem($global-gutter / 4) 0;
+}
+
+.button {
+  display: flex;
+
+  align-items: center;
+}
+
+.line {
+  width: calc(#{rem($global-padding)} - #{rem($global-gutter)});
+  height: rem(1px);
+
+  margin-right: rem($global-gutter);
+
+  background: $color-text;
+}
