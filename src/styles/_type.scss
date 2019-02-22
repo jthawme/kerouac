@@ -11,9 +11,11 @@ $font-family-mono: monospace;
   line-height: rem(14);
 }
 
+$type-size-tier-two-font-size: 16;
+$type-size-tier-two-line-height: 22;
 @mixin type-size-tier-two {
-  font-size: rem(16);
-  line-height: rem(22);
+  font-size: rem($type-size-tier-two-font-size);
+  line-height: rem($type-size-tier-two-line-height);
 }
 
 @mixin type-size-tier-three {

@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 // Redux
 
 // Components
+import SEO from '../Common/SEO/SEO';
 import CharacterTile, { SIZES } from '../CharacterTile/CharacterTile';
 
 // CSS, Requires
@@ -61,7 +62,7 @@ class Home extends React.Component {
       if (dt % 2 === 0) {
         state.gridColumn = getPlacement(5, 3, 1);
       } else {
-        state.gridColumn = getPlacement(6, 3, 6);
+        state.gridColumn = getPlacement(7, 3, 6);
       }
     }
 
@@ -134,6 +135,7 @@ class Home extends React.Component {
 
     return (
       <div className={cls}>
+        <SEO/>
         { list.slice(0, top).map(this.renderPeople) }
         { list.slice(top).map(this.renderSmallPeople) }
       </div>
@@ -143,9 +145,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   className: PropTypes.string,
-  persons: PropTypes.shape({
-    list: PropTypes.array
-  }).isRequired
+  persons: PropTypes.array.isRequired
 };
 
 Home.defaultProps = {

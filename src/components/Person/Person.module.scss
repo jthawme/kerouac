@@ -1,0 +1,82 @@
+@import '../../styles/base';
+
+.root {
+  @include global-padding-top(2);
+  @include global-padding-right;
+  @include global-padding-bottom;
+  @include global-padding-left;
+  @include grid(12);
+
+  grid-template-areas:
+    ". . . image image image image image image . . ."
+    ". . . name name name name name name . . ."
+    ". . . meta meta meta meta meta meta . . ."
+    ". . . desc desc desc desc desc desc . . ."
+    ". . . appe appe appe appe appe appe . . ."
+}
+
+.image {
+  grid-column: image;
+}
+
+.name {
+  @include type-size-tier-four;
+  @include global-padding-top(1.5);
+
+  grid-column: name;
+
+  text-align: center;
+}
+
+.meta {
+  @include type-size-tier-two;
+  @include global-padding-top(0.25);
+  @include global-padding-bottom(1.5);
+
+  grid-column: meta;
+
+  text-align: center;
+
+  margin: 0;
+}
+
+.description {
+  @include type-size-tier-two;
+
+  grid-column: desc;
+  text-align: justify;
+
+  p {
+    margin: 0 0 rem($type-size-tier-two-line-height);
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.appearances {
+  @include grid(2);
+
+  grid-column: appe;
+  grid-row-gap: rem($global-gutter);
+
+  list-style: none;
+
+  padding: 0;
+  margin: rem($global-padding * 2) 0 0;
+}
+
+.appearanceItem {
+  &Name {
+    @include type-size-tier-three;
+  }
+
+  &Book,
+  &Name {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+

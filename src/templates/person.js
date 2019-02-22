@@ -14,23 +14,10 @@ export const query = graphql`
       name,
       title,
       description,
+      location,
       image {
-        medium: childImageSharp {
-          fluid(maxWidth: 600, grayscale: true) {
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-            originalImg
-            originalName
-            presentationWidth
-            presentationHeight
-          }
-        },
-        large: childImageSharp {
-          fluid(maxWidth: 1500, grayscale: true) {
+        header: childImageSharp {
+          fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true) {
             aspectRatio
             src
             srcSet

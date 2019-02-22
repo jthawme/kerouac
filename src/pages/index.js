@@ -8,7 +8,14 @@ const IndexPage = ({ data }) => <Home {...data}/>;
 export default IndexPage
 
 export const query = graphql`
-  query {
+  {
+    site {
+      siteMetadata {
+        title
+        description
+        author
+      }
+    },
     people: allPersonYaml {
       list: edges {
         node {
@@ -59,7 +66,10 @@ export const query = graphql`
             big_sur
             satori_in_paris
           },
-          title
+          title,
+          fields {
+            slug
+          }
         }
       }
     }

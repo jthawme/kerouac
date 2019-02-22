@@ -18,6 +18,7 @@
 
     &--small {
       @include grid(12);
+      @include global-padding-top(0.5);
 
       > *:nth-child(1) {
         @include global-margin-top(3);

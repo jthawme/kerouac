@@ -2,6 +2,9 @@
 
 .root {
   grid-auto-rows: min-content;
+
+  text-decoration: none;
+  color: $color-text;
 }
 
 .image {

@@ -96,7 +96,7 @@ class Layout extends React.Component {
           Type to search...
         </BtnLink>
 
-        <p className="layout__logo">Friends of Kerouac</p>
+        <BtnLink to="/" className="layout__logo">Friends of Kerouac</BtnLink>
 
         <BtnLink
           className="layout__link"

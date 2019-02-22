@@ -2,6 +2,9 @@
 
 .root {
   @include grid(8);
+
+  text-decoration: none;
+  color: $color-text;
 }
 
 .image {

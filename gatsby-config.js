@@ -3,6 +3,7 @@ module.exports = {
     title: `Friends of Kerouac`,
     description: `Learn about the people who made up the Beat Generation in Kerouac's The Duluoz Legend.s`,
     author: `@jthawme`,
+    keywords: ['Beat Generation', 'Beatnik', 'Jack Kerouac', 'Kerouac', 'On the Road']
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // 3rd Party Modules
+import { Link } from 'gatsby';
 
 // Components
 
 // CSS, Requires
 import styles from "./CharacterLargeTile.module.scss";
 
-const CharacterLargeTile = ({ className, image, displayName, name, alt, style }) => (
-    <div className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={style}>
+const CharacterLargeTile = ({ className, image, displayName, name, alt, style, slug }) => (
+    <Link to={ slug } className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={style}>
       <div className={styles.text}>
         <p className={styles.title}>{ displayName }</p>
         { displayName ? <p className={styles.subtitle}>{ name }</p> : null }
@@ -17,7 +18,7 @@ const CharacterLargeTile = ({ className, image, displayName, name, alt, style })
       <div className={styles.image}>
         { image }
       </div>
-    </div>
+    </Link>
 );
 
 CharacterLargeTile.propTypes = {
