@@ -2,6 +2,13 @@
 @import '~normalize.css';
 @import 'fonts';
 
+@mixin dark-mode {
+  --color-text: #{$color-dark-text};
+  --color-text-light: #{$color-dark-text-light};
+  --color-bg: #{$color-dark-bg};
+  --color-bg-opacity: #{ transparentize($color-dark-bg, 0.05) };
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,9 +18,24 @@ body {
   @include bodyFont;
   @include type-size-tier-two;
 
+  --color-text: #{$color-text};
+  --color-text-light: #{$color-text-light};
+  --color-bg: #{$color-bg};
+  --color-bg-opacity: #{ transparentize($color-bg, 0.02) };
+
   height: 100%;
 
-  color: $color-text;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  .dark &,
+  &.dark {
+    @include dark-mode();
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @include dark-mode();
+  }
 }
 
 h1,
@@ -37,6 +59,7 @@ textarea {
   color: inherit;
 
   font-family: inherit;
+  text-align: inherit;
 }
 
 #root {

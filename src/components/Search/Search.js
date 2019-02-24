@@ -89,7 +89,7 @@ class Search extends React.Component {
       return {
         type: 'Book',
         label: books[b],
-        slug: `/#${b}`
+        slug: b
       }
     });
 
@@ -149,14 +149,30 @@ class Search extends React.Component {
   }
 
   renderSearch = (opt, index) => {
-    return (
-      <li className="search-item" key={index}>
-        <Link className="search-item__link" to={ opt.slug } onClick={this.onResultClicked}>
-          <p className="search-item__title">{ opt.label }</p>
-          <p className="search-item__type">{ opt.type }</p>
-        </Link>
-      </li>
-    )
+    if (opt.type === 'Book') {
+      const onClick = () => {
+        this.onResultClicked();
+        this.props.onSetFilter(opt.slug)
+      };
+
+      return (
+        <li className="search-item" key={index}>
+          <button className="search-item__link" onClick={onClick}>
+            <p className="search-item__title">{ opt.label }</p>
+            <p className="search-item__type">{ opt.type }</p>
+          </button>
+        </li>
+      )
+    } else {
+      return (
+        <li className="search-item" key={index}>
+          <Link className="search-item__link" to={opt.slug} onClick={this.onResultClicked}>
+            <p className="search-item__title">{ opt.label }</p>
+            <p className="search-item__type">{ opt.type }</p>
+          </Link>
+        </li>
+      )
+    }
   }
 
   render() {

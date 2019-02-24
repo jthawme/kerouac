@@ -12,7 +12,7 @@
     property: opacity, visibility;
   };
 
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: var(--color-bg-opacity);
 
   &--open {
     opacity: 1;
@@ -75,11 +75,11 @@
 
       &:focus {
         padding-bottom: rem(2px);
-        border-bottom: rem(2px) solid $color-text;
+        border-bottom: rem(2px) solid var(--color-text);
       }
 
       &::placeholder {
-        color: $color-text-light;
+        color: var(--color-text-light);
       }
     }
   }
@@ -93,8 +93,29 @@
   flex-direction: column;
 
   &__link {
+    position: relative;
+
     text-decoration: none;
-    color: $color-text;
+    color: var(--color-text);
+    outline: 0;
+
+    cursor: pointer;
+
+    padding-bottom: rem(2px);
+
+    &:focus:after {
+      position: absolute;
+
+      top: 100%;
+      left: 0;
+
+      width: rem(50px);
+      height: rem(2px);
+
+      content: '';
+
+      background-color: var(--color-text);
+    }
   }
 
   &__title,

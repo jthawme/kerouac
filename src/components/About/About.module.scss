@@ -66,3 +66,31 @@
     padding: 0;
   }
 }
+
+.footer {
+  @include grid;
+
+  align-items: flex-end;
+
+  &Site,
+  &Contact,
+  &Twitter {
+    @include global-padding-bottom;
+  }
+
+  &Site {
+    @include column(2, 3);
+  }
+
+  &Contact {
+    @include column(5, 1);
+  }
+
+  &Twitter {
+    @include column(6, 1);
+  }
+
+  &Image {
+    @include column(8, 5);
+  }
+}

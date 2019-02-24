@@ -19,10 +19,10 @@
 }
 
 .item {
-  color: $color-text-light;
+  color: var(--color-text-light);
 
   &.active {
-    color: $color-text;
+    color: var(--color-text);
   }
 
   &:not(.active):hover,

@@ -20,6 +20,10 @@ class BookSelector extends React.Component {
     engaged: false
   }
 
+  setFilter(filter) {
+    this.props.setFilter(filter);
+  }
+
   renderBook = (book) => {
     const cls = classNames(
       styles.item,
@@ -30,7 +34,7 @@ class BookSelector extends React.Component {
 
     return (
       <li key={book} className={cls}>
-        <button className={styles.button} onClick={() => this.props.setFilter(book)}>
+        <button className={styles.button} onClick={() => this.setFilter(book)}>
           <span className={styles.line}/>
           <span className={styles.label}>
             {books[book]}

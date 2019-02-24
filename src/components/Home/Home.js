@@ -15,12 +15,20 @@ import CharacterTile, { SIZES } from '../CharacterTile/CharacterTile';
 // CSS, Requires
 import "./Home.scss";
 
+/**
+ * Generates a grid css value
+ *
+ * @param {Number} total The total number of columns it can inhabit
+ * @param {Number} span The span of the element
+ * @param {Number} prefix Push the column initially
+ */
 const getPlacement = (total, span, prefix = 0) => {
   const possible = total - span;
   const rand = (Math.floor(Math.random() * possible) + 1) + prefix;
   return `${ rand } / span ${span}`;
 };
 
+// Struct to help out with the ordering
 export const PRIORITY = {
   LARGE: 0,
   MEDIUM: 1,
@@ -45,14 +53,25 @@ class Home extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
+    // Checks if the filter changes to rebuild the list
     if (oldProps.filter !== this.props.filter) {
       const { top, list } = this.getList(this.props.people.list, this.props.filter);
       this.setState({ top, list });
     }
   }
 
+
+  /**
+   * Gets the newly formed list of people and their
+   * presentational elements and ordered
+   *
+   * @param {Array} list List of people
+   * @param {String} filter Book string
+   */
   getList(list, filter) {
     const filtered = list.filter((person) => this.filterPeople(person, filter));
+
+    // Needs to work out how many 'top' placed people there are
     const top = filtered.reduce((prev, curr) => {
       if (curr.node.priority <= PRIORITY.MEDIUM) {
         return prev + 1;
@@ -69,6 +88,13 @@ class Home extends React.Component {
     };
   }
 
+
+  /**
+   * Orders based on assigned priority
+   *
+   * @param {Object} person1
+   * @param {Object} person2
+   */
   orderPeople(person1, person2) {
     if (person1.node.priority < person2.node.priority) {
       return -1;
@@ -81,14 +107,24 @@ class Home extends React.Component {
     return 0;
   }
 
+
+  /**
+   * Adds fixed presentational elements to the characters
+   *
+   * @param {Object} person
+   * @param {Number} index
+   * @param {Number} top
+   */
   templatePeople(person, index, top) {
     const state = {
       ...person
     };
 
+    // If its the first (jack) its full width
     if (index === 0) {
       state.gridColumn = getPlacement(12, 12);
     } else if (index < top) {
+      // If its a medium/top range alternate its side
       const dt = index - top;
 
       if (dt % 2 === 0) {
@@ -97,6 +133,7 @@ class Home extends React.Component {
         state.gridColumn = getPlacement(8, 8, 3)
       }
     } else {
+      // Small characters just alternate going down
       const dt = index - top;
 
       if (dt % 2 === 0) {
@@ -106,15 +143,29 @@ class Home extends React.Component {
       }
     }
 
+    // Grab a 0-1 for margin top
     state.marginTop = Math.random();
 
     return state;
   }
 
+
+  /**
+   * Filters if they appear in the current filter
+   * @param {Object} person
+   * @param {String} filter
+   */
   filterPeople(person, filter) {
     return (filter in person.node.appearances && person.node.appearances[filter]);
   }
 
+
+  /**
+   * Renders any character single column in the 'top' section
+   *
+   * @param {Object} person
+   * @param {Number} index
+   */
   renderPeople(person, index) {
     const size = index === 0 ? SIZES.LARGE : SIZES.MEDIUM;
     return (
@@ -132,6 +183,13 @@ class Home extends React.Component {
     );
   }
 
+
+  /**
+   * Renders the multi column 'small' characters
+   *
+   * @param {Object} person
+   * @param {Number} index
+   */
   renderSmallPeople(person, index) {
     const { list, top } = this.state;
     const next = top + index + 1;

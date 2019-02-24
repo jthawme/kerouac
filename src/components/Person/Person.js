@@ -26,7 +26,7 @@ class Person extends React.Component {
         return (
           <li className={styles.appearanceItem} key={a}>
             <p className={styles.appearanceItemName}>{ appearances[a] }</p>
-            <BtnLink to={`/#${a}`} className={styles.appearanceItemBook}>{ getBookName(a) }</BtnLink>
+            <BtnLink onClick={() => this.props.setFilter(a) } className={styles.appearanceItemBook}>{ getBookName(a) }</BtnLink>
           </li>
         )
       }

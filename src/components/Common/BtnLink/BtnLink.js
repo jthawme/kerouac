@@ -10,6 +10,8 @@ import { Link } from 'gatsby';
 // CSS, Requires
 import "./BtnLink.scss";
 
+export const isExternal = (url) => url.startsWith('http') || url.startsWith('mailto');
+
 const BtnLink = ({ className, children, to, ...props }) => {
   const cls = classNames(
     className,
@@ -24,7 +26,9 @@ const BtnLink = ({ className, children, to, ...props }) => {
     ...props
   };
 
-  if (to) {
+  if (to && isExternal(to)) {
+    return <a target="_blank" href={to} rel="noreferrer noopener" {...attrs}>{ children }</a>
+  } else if (to) {
     return <Link to={to} {...attrs}>{ children }</Link>
   } else {
     return <button {...attrs}>{ children }</button>;

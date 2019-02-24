@@ -8,11 +8,13 @@ import { bindActionCreators } from 'redux';
 import 'focus-visible';
 
 // Redux
+import { setFilter } from '../../../state/actions/app';
 
 // Components
 import BtnLink from '../BtnLink/BtnLink';
 import BookSelector from '../BookSelector/BookSelector';
 import Search from '../../Search/Search';
+import FilterCheck from '../FilterCheck/FilterCheck';
 
 // CSS, Requires
 import "./Layout.scss";
@@ -92,7 +94,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, filter } = this.props;
     const { top, searchBox } = this.state;
 
     const cls = classNames(
@@ -106,6 +108,8 @@ class Layout extends React.Component {
 
     return (
       <div className={cls}>
+        <FilterCheck filter={ filter }/>
+
         <BtnLink
           className="layout__search"
           onClick={this.onRequestSearchOpen}>
@@ -161,6 +165,7 @@ class Layout extends React.Component {
               open={searchBox}
               onRequestOpen={this.onRequestSearchOpen}
               onRequestClose={this.onRequestSearchClose}
+              onSetFilter={this.props.setFilter}
               className="layout__search-box"/>
           )}
         />
@@ -181,12 +186,13 @@ Layout.defaultProps = {
 
 const mapStateToProps = (store) => {
   return {
+    filter: store.app.filter
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-
+    setFilter
   }, dispatch);
 };
 

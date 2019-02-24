@@ -66,38 +66,42 @@ const About = ({ className }) => (
       <StaticQuery
         query={graphql`
           {
-            imageSharp {
-              fluid(maxWidth: 500, grayscale: true) {
-                base64
-                tracedSVG
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+            footerImage: file(relativePath: { eq: "the-beatniks.jpg" }) {
+              childImageSharp {
+                fluid(maxWidth: 700, grayscale: true) {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
+                  originalImg
+                  originalName
+                  presentationWidth
+                  presentationHeight
+                }
               }
             }
           }
         `}
-        render={({ footerImage }) => (
-          <footer className={`${styles.grid} ${styles.quote}`}>
-            <div className={styles.footerSite}>
-              <BtnLink to="https://jthaw.me">Made by jthawme</BtnLink>
-            </div>
-            <div className={styles.footerContact}>
-              <BtnLink to="mailto:hi@jthaw.me?subject=Friends of Kerouac">Contact</BtnLink>
-            </div>
-            <div className={styles.footerTwitter}>
-              <BtnLink to="https://twitter.com/jthawme">Twitter</BtnLink>
-            </div>
-            <Img {...footerImage} className={styles.footerImage}/>
-          </footer>
-        )}/>
+        render={({ footerImage }) => {
+          return (
+            <footer className={`${styles.grid} ${styles.footer}`}>
+              <div className={styles.footerSite}>
+                <BtnLink to="https://jthaw.me">Made by jthawme</BtnLink>
+              </div>
+              <div className={styles.footerContact}>
+                <BtnLink to="mailto:hi@jthaw.me?subject=Friends of Kerouac">Contact</BtnLink>
+              </div>
+              <div className={styles.footerTwitter}>
+                <BtnLink to="https://twitter.com/jthawme">Twitter</BtnLink>
+              </div>
+              <Img {...footerImage.childImageSharp} className={styles.footerImage}/>
+            </footer>
+          )
+        }}/>
     </div>
 );
 
