@@ -24,6 +24,7 @@ class BreakpointCheck extends React.Component {
 
   componentDidMount() {
     this.addEventListeners();
+    this.update();
   }
 
   addEventListeners() {

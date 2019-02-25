@@ -12,7 +12,16 @@
     ". name name name name name"
     ". meta meta meta meta meta"
     ". desc desc desc desc desc"
+    ". . appe appe appe appe";
+
+  @include breakpoint(phablet) {
+    grid-template-areas:
+    ". image image image image image"
+    ". name name name name name"
+    ". meta meta meta meta meta"
+    ". desc desc desc desc desc"
     ". appe appe appe appe appe";
+  }
 
   @include breakpoint(tablet) {
     @include global-padding-top(2);
@@ -24,6 +33,18 @@
       ". . . meta meta meta meta meta meta . . ."
       ". . . desc desc desc desc desc desc . . ."
       ". . . appe appe appe appe appe appe . . .";
+  }
+
+  @include breakpoint(desktop) {
+    @include global-padding-top(2);
+    @include grid(12);
+
+    grid-template-areas:
+      ". . . image image image image image image . . ."
+      ". . . name name name name name name . . ."
+      ". . . meta meta meta meta meta meta . . ."
+      ". . . . desc desc desc desc . . . ."
+      ". appe appe appe appe appe appe appe appe appe . .";
   }
 }
 
@@ -81,9 +102,15 @@
   @include breakpoint(phablet) {
     @include grid(2);
   }
+
+  @include breakpoint(desktop) {
+    @include grid(3);
+  }
 }
 
 .appearanceItem {
+  text-align: right;
+
   &Name {
     @include type-size-tier-three;
   }
@@ -92,6 +119,30 @@
   &Name {
     padding: 0;
     margin: 0;
+  }
+
+  @include breakpoint(phablet) {
+    text-align: left;
+  }
+
+  @include breakpoint(tablet) {
+    &Name {
+      @include type-size-tier-two;
+    }
+
+    &Book {
+      color: var(--color-text-light);
+    }
+  }
+
+  @include breakpoint(laptop) {
+    &Name {
+      @include type-size-tier-three;
+    }
+
+    &Book {
+      color: var(--color-text);
+    }
   }
 }
 

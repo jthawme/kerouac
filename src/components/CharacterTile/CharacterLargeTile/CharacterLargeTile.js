@@ -9,8 +9,8 @@ import { Link } from 'gatsby';
 // CSS, Requires
 import styles from "./CharacterLargeTile.module.scss";
 
-const CharacterLargeTile = ({ className, image, displayName, name, alt, style, slug }) => (
-    <div className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={style}>
+const CharacterLargeTile = ({ className, image, displayName, name, alt, slug, style }) => (
+    <div className={`${className} ${styles.root} ${alt ? styles.alt : ''}`} style={ style }>
       <Link to={ slug } className={styles.text}>
         <p className={styles.title}>{ displayName }</p>
         { displayName ? <p className={styles.subtitle}>{ name }</p> : null }

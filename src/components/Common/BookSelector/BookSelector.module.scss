@@ -1,5 +1,9 @@
 @import '../../../styles/base';
 
+@function getColWidth($cols, $total: 6) {
+  @return (((100% / #{$total}) * #{$cols}) - #{$global-gutter}) + (#{$global-gutter} / #{$total / #{$cols}});
+}
+
 .root {
   font-family: inherit;
 
@@ -34,22 +38,21 @@
   }
 }
 
-@function getColWidth($cols, $total: 6) {
-  @return (((100% / #{$total}) * #{$cols}) - #{$global-gutter}) + (#{$global-gutter} / #{$total / #{$cols}});
-}
-
 .list {
+  @include global-padding-top(2);
+
   position: fixed;
 
   display: flex;
   flex-direction: column;
 
-  justify-content: center;
+  justify-content: flex-start;
 
   list-style: none;
 
+  top: 50%;
   left: calc(#{$global-mobile-padding} + (#{ getColWidth(1) }));
-  height: 100%;
+  max-height: 100%;
 
   padding-right: 0;
   padding-bottom: 0;
@@ -60,6 +63,8 @@
   visibility: hidden;
 
   overflow: auto;
+
+  transform: translate3d(0, -50%, 0);
 
   transition: {
     duration: 0.25s;
@@ -72,17 +77,18 @@
     visibility: visible;
   }
 
-  @include breakpoint(phablet) {
-    @include global-padding-top(3);
-  }
-
   @include breakpoint(tablet) {
+    @include global-padding-top(0);
+
     top: 50%;
     left: 0;
 
     height: auto;
 
     transform: translate3d(0, -50%, 0);
+
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -100,6 +106,8 @@
   }
 
   @include breakpoint(tablet) {
+    @include global-margin-bottom(0);
+
     &:not(.active):hover,
     &:not(.active) .button:focus,
     &:not(.active) .button:active {
@@ -204,5 +212,9 @@
   .engaged & {
     opacity: 1;
     visibility: visible;
+  }
+
+  @include breakpoint(tablet) {
+    display: none;
   }
 }

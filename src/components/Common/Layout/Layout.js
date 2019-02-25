@@ -33,7 +33,6 @@ class Layout extends React.Component {
       searchBox: false
     };
 
-    this.onScroll = this.onScroll.bind(this);
     this.scrollY = 0;
     this.ticking = false;
   }
@@ -46,9 +45,17 @@ class Layout extends React.Component {
     document.addEventListener('scroll', this.onScroll, {
       passive: true
     });
+
+    window.addEventListener('sw-updated', this.onSwUpdated, false);
   }
 
-  onScroll() {
+  onSwUpdated = () => {
+    this.setState({
+      sw: true
+    });
+  }
+
+  onScroll = () => {
     this.scrollY = window.scrollY;
     this.requestTick();
   }
@@ -97,12 +104,15 @@ class Layout extends React.Component {
 
   render() {
     const { children, filter, breakpoint } = this.props;
-    const { top, searchBox } = this.state;
+    const { top, searchBox, sw } = this.state;
 
     const cls = classNames(
       'layout',
       {
         'layout--not-top': !top
+      },
+      {
+        'layout--sw-update': sw
       }
     );
 
@@ -120,6 +130,8 @@ class Layout extends React.Component {
         </BtnLink>
 
         <BtnLink to="/" className="layout__logo">Friends of Kerouac</BtnLink>
+
+        <BtnLink onClick={() => window.location.reload()} className="layout__sw">Reload page for updates</BtnLink>
 
         <BookSelector
           breakpoint={breakpoint}

@@ -153,4 +153,14 @@
   &:focus {
     opacity: 0.5;
   }
+
+  @include breakpoint(laptop) {
+    &__title {
+      @include type-size-tier-four;
+    }
+
+    &__type {
+      @include type-size-tier-three;
+    }
+  }
 }

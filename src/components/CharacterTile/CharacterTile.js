@@ -29,7 +29,7 @@ const getCurrentName = (obj, filter, fallback) => {
   return (filter in obj) ? obj[filter] : fallback;
 };
 
-const CharacterTile = ({ className, size, image, name, filter, appearances, alt, style, fields }) => {
+const CharacterTile = ({ className, size, image, name, filter, appearances, alt, fields, style }) => {
   const img = <Img backgroundColor={'#000'} {...getImage(image, size)}/>;
 
   if (size === SIZES.SMALL) {
@@ -39,7 +39,7 @@ const CharacterTile = ({ className, size, image, name, filter, appearances, alt,
         displayName={ getCurrentName(appearances, filter, name) }
         name={ name }
         image={ img }
-        style={style}
+        style={ style }
         {...fields}/>
     );
   }
@@ -51,7 +51,7 @@ const CharacterTile = ({ className, size, image, name, filter, appearances, alt,
         displayName={ getCurrentName(appearances, filter, name) }
         name={ name }
         image={ img }
-        style={style}
+        style={ style }
         {...fields}/>
     );
   }
@@ -63,7 +63,7 @@ const CharacterTile = ({ className, size, image, name, filter, appearances, alt,
         displayName={ getCurrentName(appearances, filter, name) }
         name={ name }
         image={ img }
-        style={style}
+        style={ style }
         {...fields}/>
     );
   }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // 3rd Party Modules
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
+import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
 // Redux
 import { setFilter } from '../../../state/actions/app';
@@ -23,7 +24,10 @@ class BookSelector extends React.Component {
   }
 
   setFilter(filter) {
-    this.onDisengage();
+    if (this.props.breakpoint < BREAKPOINTS.TABLET) {
+      this.onDisengage();
+    }
+
     this.props.setFilter(filter);
   }
 
@@ -100,16 +104,21 @@ class BookSelector extends React.Component {
 
     return (
       <div className={cls} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+        <ScrollLock isActive={this.isMobile && engaged}/>
+
+
         <div className={styles.overlay} onClick={this.onDisengage}/>
         <BtnLink className={styles.current} onClick={this.toggleEngage}>
           { getBookName(filter) }<br/>
           <span className={styles.currentHook}>{ engaged ? 'Close' : 'Change Book' }</span>
         </BtnLink>
-        <ul className={styles.list}>
-          {
-            Object.keys(books).map(this.renderBook)
-          }
-        </ul>
+        <TouchScrollable>
+          <ul className={styles.list}>
+            {
+              Object.keys(books).map(this.renderBook)
+            }
+          </ul>
+        </TouchScrollable>
       </div>
     );
   }

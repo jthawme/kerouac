@@ -10,24 +10,10 @@ import { bindActionCreators } from 'redux';
 
 // Components
 import SEO from '../Common/SEO/SEO';
-import CharacterTile, { SIZES } from '../CharacterTile/CharacterTile';
+import HomeTiles from '../HomeTiles/HomeTiles';
 
 // CSS, Requires
 import "./Home.scss";
-import { BREAKPOINTS } from '../../utils/breakpoints';
-
-/**
- * Generates a grid css value
- *
- * @param {Number} total The total number of columns it can inhabit
- * @param {Number} span The span of the element
- * @param {Number} prefix Push the column initially
- */
-const getPlacement = (total, span, prefix = 0) => {
-  const possible = total - span;
-  const rand = (Math.floor(Math.random() * possible) + 1) + prefix;
-  return `${ rand } / span ${span}`;
-};
 
 // Struct to help out with the ordering
 export const PRIORITY = {
@@ -47,10 +33,6 @@ class Home extends React.Component {
       filter: props.filter,
       list
     };
-
-    this.filterPeople = this.filterPeople.bind(this);
-    this.renderPeople = this.renderPeople.bind(this);
-    this.renderSmallPeople = this.renderSmallPeople.bind(this);
   }
 
   componentDidUpdate(oldProps) {
@@ -85,7 +67,7 @@ class Home extends React.Component {
 
     return {
       top,
-      list: filtered.map((person, index) => this.templatePeople(person, index, top))
+      list: filtered
     };
   }
 
@@ -110,139 +92,12 @@ class Home extends React.Component {
 
 
   /**
-   * Adds fixed presentational elements to the characters
-   *
-   * @param {Object} person
-   * @param {Number} index
-   * @param {Number} top
-   */
-  templatePeople(person, index, top) {
-    const state = {
-      ...person
-    };
-
-    // If its the first (jack) its full width
-    if (index === 0) {
-      state.gridColumn = getPlacement(12, 12);
-    } else if (index < top) {
-      // If its a medium/top range alternate its side
-      const dt = index - top;
-
-      if (dt % 2 === 0) {
-        state.gridColumn = getPlacement(8, 8, 1)
-      } else {
-        state.gridColumn = getPlacement(8, 8, 3)
-      }
-    } else {
-      // Small characters just alternate going down
-      const dt = index - top;
-
-      if (dt % 2 === 0) {
-        state.gridColumn = getPlacement(5, 3, 1);
-        state.gridColumnMobile = getPlacement(3, 2, 1);
-      } else {
-        state.gridColumn = getPlacement(7, 3, 6);
-        state.gridColumnMobile = getPlacement(4, 2, 3);
-      }
-    }
-
-    // Grab a 0-1 for margin top
-    state.marginTop = Math.random();
-
-    return state;
-  }
-
-
-  /**
    * Filters if they appear in the current filter
    * @param {Object} person
    * @param {String} filter
    */
-  filterPeople(person, filter) {
+  filterPeople = (person, filter) => {
     return (filter in person.node.appearances && person.node.appearances[filter]);
-  }
-
-
-  /**
-   * Renders any character single column in the 'top' section
-   *
-   * @param {Object} person
-   * @param {Number} index
-   */
-  renderPeople(person, index) {
-    const size = index === 0 ? SIZES.LARGE : SIZES.MEDIUM;
-
-    const style = {};
-
-    if (this.props.breakpoint >= BREAKPOINTS.TABLET) {
-      style.gridColumn = person.gridColumn;
-      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
-    }
-
-    return (
-      <div className={`home__person-row home__person-row--${size}`} key={person.node.id}>
-        <CharacterTile
-          style={style}
-          size={size}
-          filter={this.props.filter}
-          alt={index % 2 !== 0}
-          {...person.node}/>
-      </div>
-    );
-  }
-
-
-  /**
-   * Renders the multi column 'small' characters
-   *
-   * @param {Object} person
-   * @param {Number} index
-   */
-  renderSmallPeople(person, index) {
-    const { list, top } = this.state;
-    const next = top + index + 1;
-
-    if (index % 2 === 1) {
-      return null;
-    }
-
-    const style = {};
-    const styleNext = {};
-
-    if (this.props.breakpoint >= BREAKPOINTS.TABLET) {
-      style.gridColumn = person.gridColumn;
-      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
-
-      if (next < list.length) {
-        styleNext.gridColumn = list[next].gridColumn;
-        styleNext.marginTop = `${list[next].marginTop * 8}rem`;
-      }
-    } else {
-      style.gridColumn = person.gridColumnMobile;
-      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
-
-      if (next < list.length) {
-        styleNext.gridColumn = list[next].gridColumnMobile;
-        styleNext.marginTop = `${list[next].marginTop * 8}rem`;
-      }
-    }
-
-    return (
-      <div className="home__person-row home__person-row--small" key={person.node.id}>
-        <CharacterTile
-          style={style}
-          {...person.node}
-          filter={this.props.filter}/>
-        {
-          next < list.length ? (
-            <CharacterTile
-              style={styleNext}
-              {...list[next].node}
-              filter={this.props.filter}/>
-          ) : null
-        }
-      </div>
-    );
   }
 
   render() {
@@ -257,8 +112,10 @@ class Home extends React.Component {
     return (
       <div className={cls}>
         <SEO/>
-        { list.slice(0, top).map(this.renderPeople) }
-        { list.slice(top).map(this.renderSmallPeople) }
+
+        <HomeTiles
+          list={ list }
+          top={ top }/>
       </div>
     );
   }

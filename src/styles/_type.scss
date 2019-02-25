@@ -44,6 +44,16 @@ $type-size-tier-two-line-height: 24;
   }
 }
 
+@mixin type-size-tier-five {
+  font-size: rem(36);
+  line-height: rem(42);
+
+  @include breakpoint(tablet) {
+    font-size: rem(96);
+    line-height: rem(96);
+  }
+}
+
 @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {
   font: {
     family: $family;
