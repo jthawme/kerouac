@@ -98,7 +98,7 @@ const About = ({ className }) => (
               <div className={styles.footerTwitter}>
                 <BtnLink to="https://twitter.com/jthawme">Twitter</BtnLink>
               </div>
-              <Img {...footerImage.childImageSharp} className={styles.footerImage}/>
+              <Img {...footerImage.childImageSharp} backgroundColor="#000" className={styles.footerImage}/>
             </footer>
           )
         }}/>

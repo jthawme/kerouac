@@ -1,49 +1,57 @@
+@mixin global-var-rule($rule: '', $multi: 1) {
+  #{$rule}: rem($global-mobile-padding * $multi);
+
+  @include breakpoint(tablet) {
+    #{$rule}: rem($global-padding * $multi);
+  }
+}
+
 @mixin global-top($multi: 1) {
-  top: rem($global-padding * $multi);
+  @include global-var-rule('top', $multi);
 }
 
 @mixin global-bottom($multi: 1) {
-  bottom: rem($global-padding * $multi);
+  @include global-var-rule('bottom', $multi);
 }
 
 @mixin global-left($multi: 1) {
-  left: rem($global-padding * $multi);
+  @include global-var-rule('left', $multi);
 }
 
 @mixin global-right($multi: 1) {
-  right: rem($global-padding * $multi);
+  @include global-var-rule('right', $multi);
 }
 
 @mixin global-padding-top($multi: 1) {
-  padding-top: rem($global-padding * $multi);
+  @include global-var-rule('padding-top', $multi);
 }
 
 @mixin global-padding-bottom($multi: 1) {
-  padding-bottom: rem($global-padding * $multi);
+  @include global-var-rule('padding-bottom', $multi);
 }
 
 @mixin global-padding-left($multi: 1) {
-  padding-left: rem($global-padding * $multi);
+  @include global-var-rule('padding-left', $multi);
 }
 
 @mixin global-padding-right($multi: 1) {
-  padding-right: rem($global-padding * $multi);
+  @include global-var-rule('padding-right', $multi);
 }
 
 @mixin global-margin-top($multi: 1) {
-  margin-top: rem($global-padding * $multi);
+  @include global-var-rule('margin-top', $multi);
 }
 
 @mixin global-margin-bottom($multi: 1) {
-  margin-bottom: rem($global-padding * $multi);
+  @include global-var-rule('margin-bottom', $multi);
 }
 
 @mixin global-margin-left($multi: 1) {
-  margin-left: rem($global-padding * $multi);
+  @include global-var-rule('margin-left', $multi);
 }
 
 @mixin global-margin-right($multi: 1) {
-  margin-right: rem($global-padding * $multi);
+  @include global-var-rule('margin-right', $multi);
 }
 
 @mixin grid($cols: 12) {

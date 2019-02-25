@@ -1,34 +1,58 @@
 @import '../../../styles/base';
 
 .root {
-  @include grid(8);
+  @include grid(6);
 
   text-decoration: none;
   color: var(--color-text);
+
+  @include breakpoint(tablet) {
+    @include grid(8);
+  }
 }
 
 .image {
-  @include column(5, 4);
+  @include column(4, 3);
 
   .alt & {
-    @include column(1, 4);
+    @include column(1, 3);
 
     order: 1;
+  }
+
+  @include breakpoint(tablet) {
+    @include column(5, 4);
+
+    .alt & {
+      @include column(1, 4);
+
+      order: 1;
+    }
   }
 }
 
 .text {
-  @include column(1, 4);
+  @include column(1, 3);
 
   margin-top: 20%;
   text-align: right;
 
   .alt & {
-    @include column(5, 4);
+    @include column(4, 3);
 
     order: 2;
 
     text-align: left;
+  }
+
+  @include breakpoint(tablet) {
+    @include column(1, 4);
+
+    .alt & {
+      @include column(5, 4);
+
+      order: 2;
+    }
   }
 }
 

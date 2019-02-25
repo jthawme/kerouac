@@ -2,34 +2,110 @@
 
 .root {
   font-family: inherit;
+
+  width: 100%;
+}
+
+.current {
+  @include global-top(3);
+  @include global-left;
+
+  position: fixed;
+
+  z-index: 2;
+
+  top: 50%;
+  left: auto;
+
+  right: calc(100% - #{rem($global-mobile-padding)});
+  width: rem(120px);
+
+  transform: rotate(-90deg) translate3d(#{rem(60px)},0,0);
+  transform-origin: top right;
+
+  white-space: pre;
+
+  &Hook {
+    color: var(--color-text-light);
+  }
+
+  @include breakpoint(tablet) {
+    display: none;
+  }
+}
+
+@function getColWidth($cols, $total: 6) {
+  @return (((100% / #{$total}) * #{$cols}) - #{$global-gutter}) + (#{$global-gutter} / #{$total / #{$cols}});
 }
 
 .list {
   position: fixed;
 
-  top: 50%;
-  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
 
   list-style: none;
 
-  padding: 0;
+  left: calc(#{$global-mobile-padding} + (#{ getColWidth(1) }));
+  height: 100%;
+
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
   margin: 0;
 
-  transform: translate3d(0, -50%, 0);
+  opacity: 0;
+  visibility: hidden;
+
+  overflow: auto;
+
+  transition: {
+    duration: 0.25s;
+    property: opacity, visibility;
+  }
+
+  .engaged & {
+    opacity: 1;
+
+    visibility: visible;
+  }
+
+  @include breakpoint(phablet) {
+    @include global-padding-top(3);
+  }
+
+  @include breakpoint(tablet) {
+    top: 50%;
+    left: 0;
+
+    height: auto;
+
+    transform: translate3d(0, -50%, 0);
+  }
 }
 
 .item {
+  @include global-margin-bottom(0.25);
+
   color: var(--color-text-light);
 
   &.active {
     color: var(--color-text);
   }
 
-  &:not(.active):hover,
-  &:not(.active) .button:focus,
-  &:not(.active) .button:active {
-    .line {
-      transform: scaleX(0.75);
+  @include breakpoint(phablet) {
+    @include global-margin-bottom(0.5);
+  }
+
+  @include breakpoint(tablet) {
+    &:not(.active):hover,
+    &:not(.active) .button:focus,
+    &:not(.active) .button:active {
+      .line {
+        transform: scaleX(0.75);
+      }
     }
   }
 }
@@ -39,51 +115,94 @@
 
   align-items: center;
 
-  padding: rem($global-gutter / 4) 0;
+  padding: 0;
 
   cursor: pointer;
 
   pointer-events: none;
-outline: none;
+  outline: none;
 
   .engaged & {
     pointer-events: all;
   }
+
+  @include breakpoint(tablet) {
+    padding: rem($global-gutter / 4) 0;
+  }
 }
 
 .line {
-  width: calc(#{rem($global-padding)} - #{rem($global-gutter)});
-  height: rem(1px);
+  display: none;
 
-  margin-right: rem($global-gutter);
+  @include breakpoint(tablet) {
+    display: block;
 
-  background: currentColor;
+    width: calc(#{rem($global-padding)} - #{rem($global-gutter)});
+    height: rem(1px);
 
-  transform: scaleX(0.5);
-  transform-origin: center right;
+    margin-right: rem($global-gutter);
 
-  transition: {
-    duration: 0.25s;
-    property: transform;
-  }
+    background: currentColor;
 
-  .active & {
-    transform: scaleX(1);
+    transform: scaleX(0.5);
+    transform-origin: center right;
+
+    transition: {
+      duration: 0.25s;
+      property: transform;
+    }
+
+    .active & {
+      transform: scaleX(1);
+    }
   }
 }
 
 .label {
-  @include type-size-tier-one;
-
-  opacity: 0;
+  @include type-size-tier-two;
 
   transition: {
     duration: 0.25s;
     property: opacity;
   }
 
-  .active &,
+  @include breakpoint(phablet) {
+    @include type-size-tier-three;
+  }
+
+  @include breakpoint(tablet) {
+    @include type-size-tier-one;
+
+    opacity: 0;
+
+    .active &,
+    .engaged & {
+      opacity: 1;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--color-bg-opacity);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: {
+    duration: 0.25s;
+    property: opacity, visibility;
+  }
+
   .engaged & {
     opacity: 1;
+    visibility: visible;
   }
 }

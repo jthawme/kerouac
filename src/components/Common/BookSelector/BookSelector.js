@@ -10,9 +10,11 @@ import { bindActionCreators } from 'redux';
 import { setFilter } from '../../../state/actions/app';
 
 // Components
+import BtnLink from '../BtnLink/BtnLink';
 
 // CSS, Requires
-import { books } from '../../../utils/books';
+import { books, getBookName } from '../../../utils/books';
+import { BREAKPOINTS } from '../../../utils/breakpoints';
 import styles from "./BookSelector.module.scss";
 
 class BookSelector extends React.Component {
@@ -21,6 +23,7 @@ class BookSelector extends React.Component {
   }
 
   setFilter(filter) {
+    this.onDisengage();
     this.props.setFilter(filter);
   }
 
@@ -45,19 +48,43 @@ class BookSelector extends React.Component {
   }
 
   onMouseEnter = (e) => {
+    if (!this.isMobile()) {
+      this.onEngage();
+    }
+  }
+
+  onMouseLeave = (e) => {
+    if (!this.isMobile()) {
+      this.onDisengage();
+    }
+  }
+
+  isMobile() {
+    return this.props.breakpoint < BREAKPOINTS.TABLET;
+  }
+
+  toggleEngage = () => {
+    if (this.state.engaged) {
+      this.onDisengage();
+    } else {
+      this.onEngage();
+    }
+  }
+
+  onEngage = (e) => {
     this.setState({
       engaged: true
     });
   }
 
-  onMouseLeave = (e) => {
+  onDisengage = (e) => {
     this.setState({
       engaged: false
     });
   }
 
   render() {
-    const { className } = this.props;
+    const { className, filter } = this.props;
     const { engaged } = this.state;
 
     const cls = classNames(
@@ -65,11 +92,19 @@ class BookSelector extends React.Component {
       styles.root,
       {
         [styles.engaged]: engaged
+      },
+      {
+        [styles.mobile]: this.isMobile()
       }
     );
 
     return (
       <div className={cls} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+        <div className={styles.overlay} onClick={this.onDisengage}/>
+        <BtnLink className={styles.current} onClick={this.toggleEngage}>
+          { getBookName(filter) }<br/>
+          <span className={styles.currentHook}>{ engaged ? 'Close' : 'Change Book' }</span>
+        </BtnLink>
         <ul className={styles.list}>
           {
             Object.keys(books).map(this.renderBook)

@@ -16,13 +16,21 @@
 }
 
 .title {
-  @include type-size-tier-three;
-
-  margin: 0;
-}
-
-.subtitle {
   @include type-size-tier-two;
 
   margin: 0;
+
+  @include breakpoint(tablet) {
+    @include type-size-tier-three;
+  }
+}
+
+.subtitle {
+  @include type-size-tier-one;
+
+  margin: 0;
+
+  @include breakpoint(tablet) {
+    @include type-size-tier-two;
+  }
 }

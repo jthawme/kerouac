@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import 'focus-visible';
+import { StaticQuery, graphql } from 'gatsby';
 
 // Redux
 import { setFilter } from '../../../state/actions/app';
@@ -15,10 +16,11 @@ import BtnLink from '../BtnLink/BtnLink';
 import BookSelector from '../BookSelector/BookSelector';
 import Search from '../../Search/Search';
 import FilterCheck from '../FilterCheck/FilterCheck';
+import BreakpointCheck from '../BreakpointCheck/BreakpointCheck';
 
 // CSS, Requires
+import { BREAKPOINTS } from '../../../utils/breakpoints';
 import "./Layout.scss";
-import { StaticQuery, graphql } from 'gatsby';
 
 const TOP_THRESHOLD = 100;
 
@@ -94,7 +96,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children, filter } = this.props;
+    const { children, filter, breakpoint } = this.props;
     const { top, searchBox } = this.state;
 
     const cls = classNames(
@@ -109,16 +111,18 @@ class Layout extends React.Component {
     return (
       <div className={cls}>
         <FilterCheck filter={ filter }/>
+        <BreakpointCheck/>
 
         <BtnLink
           className="layout__search"
           onClick={this.onRequestSearchOpen}>
-          Type to search...
+          { breakpoint < BREAKPOINTS.TABLET ? 'Search' : 'Type to search...' }
         </BtnLink>
 
         <BtnLink to="/" className="layout__logo">Friends of Kerouac</BtnLink>
 
         <BookSelector
+          breakpoint={breakpoint}
           className="layout__selector"/>
 
         <BtnLink
@@ -186,7 +190,8 @@ Layout.defaultProps = {
 
 const mapStateToProps = (store) => {
   return {
-    filter: store.app.filter
+    filter: store.app.filter,
+    breakpoint: store.app.breakpoint,
   };
 };
 

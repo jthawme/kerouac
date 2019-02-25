@@ -14,6 +14,7 @@ import CharacterTile, { SIZES } from '../CharacterTile/CharacterTile';
 
 // CSS, Requires
 import "./Home.scss";
+import { BREAKPOINTS } from '../../utils/breakpoints';
 
 /**
  * Generates a grid css value
@@ -138,8 +139,10 @@ class Home extends React.Component {
 
       if (dt % 2 === 0) {
         state.gridColumn = getPlacement(5, 3, 1);
+        state.gridColumnMobile = getPlacement(3, 2, 1);
       } else {
         state.gridColumn = getPlacement(7, 3, 6);
+        state.gridColumnMobile = getPlacement(4, 2, 3);
       }
     }
 
@@ -168,13 +171,18 @@ class Home extends React.Component {
    */
   renderPeople(person, index) {
     const size = index === 0 ? SIZES.LARGE : SIZES.MEDIUM;
+
+    const style = {};
+
+    if (this.props.breakpoint >= BREAKPOINTS.TABLET) {
+      style.gridColumn = person.gridColumn;
+      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
+    }
+
     return (
       <div className={`home__person-row home__person-row--${size}`} key={person.node.id}>
         <CharacterTile
-          style={{
-            gridColumn: person.gridColumn,
-            marginTop: `${index !== 0 ? person.marginTop * 3 : 0}rem`
-          }}
+          style={style}
           size={size}
           filter={this.props.filter}
           alt={index % 2 !== 0}
@@ -198,22 +206,37 @@ class Home extends React.Component {
       return null;
     }
 
+    const style = {};
+    const styleNext = {};
+
+    if (this.props.breakpoint >= BREAKPOINTS.TABLET) {
+      style.gridColumn = person.gridColumn;
+      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
+
+      if (next < list.length) {
+        styleNext.gridColumn = list[next].gridColumn;
+        styleNext.marginTop = `${list[next].marginTop * 8}rem`;
+      }
+    } else {
+      style.gridColumn = person.gridColumnMobile;
+      style.marginTop = `${index !== 0 ? person.marginTop * 3 : 0}rem`;
+
+      if (next < list.length) {
+        styleNext.gridColumn = list[next].gridColumnMobile;
+        styleNext.marginTop = `${list[next].marginTop * 8}rem`;
+      }
+    }
+
     return (
       <div className="home__person-row home__person-row--small" key={person.node.id}>
         <CharacterTile
-          style={{
-            gridColumn: person.gridColumn,
-            marginTop: `${person.marginTop * 8}rem`
-          }}
+          style={style}
           {...person.node}
           filter={this.props.filter}/>
         {
           next < list.length ? (
             <CharacterTile
-              style={{
-                gridColumn: list[next].gridColumn,
-                marginTop: `${list[next].marginTop * 8}rem`
-              }}
+              style={styleNext}
               {...list[next].node}
               filter={this.props.filter}/>
           ) : null
@@ -253,7 +276,8 @@ Home.defaultProps = {
 
 const mapStateToProps = (store) => {
   return {
-    filter: store.app.filter
+    filter: store.app.filter,
+    breakpoint: store.app.breakpoint
   };
 };
 

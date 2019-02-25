@@ -1,25 +1,46 @@
 @import '../../../styles/base';
 
 .root {
-  @include grid;
+  @include grid(6);
 
   align-items: flex-start;
 
   color: var(--color-text);
+
+  @include breakpoint(tablet) {
+    @include grid;
+  }
 }
 
 .image {
-  @include column(7, 6);
+  @include column(3, 4);
+
+  order: 1;
+
+  @include breakpoint(tablet) {
+    @include column(7, 6);
+
+    order: 2;
+  }
 }
 
 .text {
-  @include column(3, 4);
+  @include column(2, 5);
 
-  margin-top: 20%;
   text-align: right;
   text-decoration: none;
 
   color: inherit;
+
+  order: 2;
+
+  @include breakpoint(tablet) {
+    @include column(3, 4);
+
+    margin-top: 20%;
+
+    order: 1;
+  }
 }
 
 .title {
@@ -33,5 +54,9 @@
 .subtitle {
   @include type-size-tier-two;
 
-  margin: rem($global-padding / 4) 0 0;
+  margin: 0;
+
+  @include breakpoint(tablet) {
+    margin: rem($global-padding / 4) 0 0;
+  }
 }

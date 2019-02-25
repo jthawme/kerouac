@@ -8,24 +8,34 @@
 
   &__person-row {
     &--large {
-      @include global-padding-top;
+      @include global-padding-top(2);
+
+      @include breakpoint(tablet) {
+        @include global-padding-top;
+      }
     }
 
     &--medium {
       @include global-padding-top;
-      @include grid(12);
+      @include grid(6);
+
+      > * {
+        @include column(1, 6);
+      }
+
+      @include breakpoint(tablet) {
+        @include grid(12);
+        @include global-padding-top;
+      }
     }
 
     &--small {
-      @include grid(12);
-      @include global-padding-top(0.5);
+      @include grid(6);
+      @include global-padding-top(1.5);
 
-      > *:nth-child(1) {
-        @include global-margin-top(3);
-      }
-
-      > *:nth-child(2) {
-        @include global-margin-top(1.5);
+      @include breakpoint(tablet) {
+        @include grid(12);
+        @include global-padding-top(0.5);
       }
     }
   }

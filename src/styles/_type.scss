@@ -7,25 +7,41 @@ $font-family-headline: gt-haptik, sans-serif;
 $font-family-mono: monospace;
 
 @mixin type-size-tier-one {
-  font-size: rem(11);
-  line-height: rem(14);
+  font-size: rem(14);
+  line-height: rem(18);
+
+  @include breakpoint(tablet) {
+    font-size: rem(11);
+    line-height: rem(14);
+  }
 }
 
 $type-size-tier-two-font-size: 16;
 $type-size-tier-two-line-height: 24;
+
 @mixin type-size-tier-two {
   font-size: rem($type-size-tier-two-font-size);
   line-height: rem($type-size-tier-two-line-height);
 }
 
 @mixin type-size-tier-three {
-  font-size: rem(36);
-  line-height: rem(38);
+  font-size: rem(24);
+  line-height: rem(28);
+
+  @include breakpoint(tablet) {
+    font-size: rem(36);
+    line-height: rem(38);
+  }
 }
 
 @mixin type-size-tier-four {
-  font-size: rem(72);
-  line-height: rem(72);
+  font-size: rem(36);
+  line-height: rem(42);
+
+  @include breakpoint(tablet) {
+    font-size: rem(72);
+    line-height: rem(72);
+  }
 }
 
 @mixin _compoundFont($family: $font-family-body, $weight: $font-weight-normal) {

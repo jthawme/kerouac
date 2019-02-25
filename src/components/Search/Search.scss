@@ -35,33 +35,50 @@
   }
 
   &__content {
-    @include global-padding-top(1.5);
+    @include global-padding-top(2.5);
     @include global-padding-right;
     @include global-padding-bottom;
     @include global-padding-left;
-    @include grid;
+    @include grid(6);
 
-    grid-template-rows: 100%;
-
-    align-items: center;
+    grid-template-rows: rem(50px) auto;
+    align-items: flex-start;
 
     height: 100%;
 
+    @include breakpoint(tablet) {
+      @include global-padding-top(1.5);
+      @include grid;
+
+      grid-template-rows: 100%;
+      align-items: center;
+    }
+
     &__input-box {
-      grid-column: 1 / span 6;
+      @include column(1, 6);
+
+      @include breakpoint(tablet) {
+        @include column(1, 6);
+      }
     }
 
     &__results {
-      grid-column: 7 / span 6;
+      @include column(3, 4);
 
       max-height: 100%;
 
-      padding: rem(20px) 0 0;
+      padding: 0;
       margin: 0;
 
       list-style: none;
 
       overflow: auto;
+
+      @include breakpoint(tablet) {
+        @include column(7, 6);
+
+        padding: rem(20px) 0 0;
+      }
     }
 
     &__input {
