@@ -7,6 +7,10 @@ export const BREAKPOINTS = {
 };
 
 export const getBreakpoint = () => {
+  if (typeof window === 'undefined') {
+    return -1;
+  }
+
   let largest;
   const keys = Object.keys(BREAKPOINTS);
 
@@ -22,5 +26,3 @@ export const getBreakpoint = () => {
 
   return BREAKPOINTS[largest];
 }
-
-window.getBreakpoint = getBreakpoint;
