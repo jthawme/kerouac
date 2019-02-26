@@ -95,7 +95,7 @@
 
   @include breakpoint(desktop) {
     column-count: 2;
-    column-gap: $global-gutter;
+    column-gap: $global-gutter * 3;
   }
 }
 

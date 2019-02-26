@@ -112,7 +112,7 @@ class BookSelector extends React.Component {
         <div className={styles.overlay} onClick={this.onDisengage}/>
 
         <BtnLink className={styles.current} onClick={this.toggleEngage}>
-          { getBookName(filter) }<br/>
+          { getBookName(filter) }
           <span className={styles.currentHook}>{ engaged ? 'Close' : 'Change Book' }</span>
         </BtnLink>
 

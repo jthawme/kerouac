@@ -159,20 +159,20 @@
   }
 
   &Site {
-    @include column(2, 4);
+    @include column(2, 5);
     @include global-padding-bottom;
 
     order: 4;
   }
 
   &Contact {
-    @include column(1, 1);
+    @include column(2, 2);
 
     order: 2;
   }
 
   &Twitter {
-    @include column(2, 2);
+    @include column(4, 2);
 
     order: 3;
   }

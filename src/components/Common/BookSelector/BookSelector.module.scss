@@ -22,15 +22,39 @@
   left: auto;
 
   right: calc(100% - #{rem($global-mobile-padding)});
-  width: rem(120px);
+  width: rem(50px);
 
-  transform: rotate(-90deg) translate3d(#{rem(60px)},0,0);
+  transform: rotate(-90deg) translate3d(#{rem(25px)},0,0);
   transform-origin: top right;
 
   white-space: pre;
 
   &Hook {
+    position: absolute;
+
+    top: calc(100% + #{rem(2px)});
+
     color: var(--color-text-light);
+
+    .engaged & {
+      display: none;
+    }
+
+    @include breakpoint(phablet) {
+      position: relative;
+
+      display: block;
+
+      .engaged & {
+        display: block;
+      }
+    }
+  }
+
+  @include breakpoint(phablet) {
+    width: rem(120px);
+
+    transform: rotate(-90deg) translate3d(#{rem(60px)},0,0);
   }
 
   @include breakpoint(tablet) {
@@ -75,6 +99,10 @@
     opacity: 1;
 
     visibility: visible;
+  }
+
+  @include breakpoint(phablet) {
+    left: calc(#{$global-mobile-padding} + (#{ getColWidth(1) }));
   }
 
   @include breakpoint(tablet) {
