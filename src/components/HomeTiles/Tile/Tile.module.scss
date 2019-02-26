@@ -1,0 +1,28 @@
+@import '../../../styles/base';
+
+.root {
+  font-family: inherit;
+}
+
+.displayName,
+.name {
+  display: block;
+
+  padding: 0;
+  margin: 0;
+}
+
+.text,
+.displayName,
+.name {
+  text-decoration: none;
+  color: inherit;
+}
+
+.image {
+  display: block;
+}
+
+@import "Tile.large";
+@import "Tile.medium";
+@import "Tile.small";

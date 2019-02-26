@@ -1,6 +1,5 @@
-import { SET_FILTER, SET_BREAKPOINT } from '../actions/app';
+import { SET_FILTER } from '../actions/app';
 import { books } from '../../utils/books';
-import { getBreakpoint } from '../../utils/breakpoints';
 
 function getInitialFilter(def = 'on_the_road') {
   if (typeof window === 'undefined' || !window.location.hash) {
@@ -17,8 +16,7 @@ function getInitialFilter(def = 'on_the_road') {
 }
 
 const initialState = {
-  filter: getInitialFilter(),
-  breakpoint: getBreakpoint()
+  filter: getInitialFilter()
 };
 
 export default function update(state = initialState, action) {
@@ -27,11 +25,6 @@ export default function update(state = initialState, action) {
       return {
         ...state,
         filter: action.filter
-      };
-    case SET_BREAKPOINT:
-      return {
-        ...state,
-        breakpoint: action.breakpoint
       };
     default:
       return state;

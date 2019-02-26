@@ -16,6 +16,12 @@
   &__search {
     @include global-top;
     @include global-left;
+
+    @include breakpoint(laptop) {
+      &:before {
+        content: 'Type to ';
+      };
+    }
   }
 
   &__logo {

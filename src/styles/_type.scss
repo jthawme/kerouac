@@ -29,6 +29,11 @@ $type-size-tier-two-line-height: 24;
   line-height: rem(28);
 
   @include breakpoint(tablet) {
+    font-size: rem(28);
+    line-height: rem(30);
+  }
+
+  @include breakpoint(laptop) {
     font-size: rem(36);
     line-height: rem(38);
   }
@@ -39,6 +44,11 @@ $type-size-tier-two-line-height: 24;
   line-height: rem(42);
 
   @include breakpoint(tablet) {
+    font-size: rem(56);
+    line-height: rem(56);
+  }
+
+  @include breakpoint(laptop) {
     font-size: rem(72);
     line-height: rem(72);
   }

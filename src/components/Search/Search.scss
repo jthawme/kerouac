@@ -158,9 +158,5 @@
     &__title {
       @include type-size-tier-four;
     }
-
-    &__type {
-      @include type-size-tier-three;
-    }
   }
 }

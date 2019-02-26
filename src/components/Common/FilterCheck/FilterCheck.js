@@ -12,7 +12,6 @@ import { navigate } from 'gatsby';
 
 class FilterCheck extends React.Component {
   componentDidUpdate(oldProps) {
-    console.log(this.props.filter);
     if (oldProps.filter !== this.props.filter) {
       this.updateFilter(this.props.filter);
     }

@@ -16,10 +16,8 @@ import BtnLink from '../BtnLink/BtnLink';
 import BookSelector from '../BookSelector/BookSelector';
 import Search from '../../Search/Search';
 import FilterCheck from '../FilterCheck/FilterCheck';
-import BreakpointCheck from '../BreakpointCheck/BreakpointCheck';
 
 // CSS, Requires
-import { BREAKPOINTS } from '../../../utils/breakpoints';
 import "./Layout.scss";
 
 const TOP_THRESHOLD = 100;
@@ -103,7 +101,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children, filter, breakpoint } = this.props;
+    const { children, filter } = this.props;
     const { top, searchBox, sw } = this.state;
 
     const cls = classNames(
@@ -121,12 +119,11 @@ class Layout extends React.Component {
     return (
       <div className={cls}>
         <FilterCheck filter={ filter }/>
-        <BreakpointCheck/>
 
         <BtnLink
           className="layout__search"
           onClick={this.onRequestSearchOpen}>
-          { breakpoint < BREAKPOINTS.TABLET ? 'Search' : 'Type to search...' }
+          Search
         </BtnLink>
 
         <BtnLink to="/" className="layout__logo">Friends of Kerouac</BtnLink>
@@ -134,7 +131,6 @@ class Layout extends React.Component {
         <BtnLink onClick={() => window.location.reload()} className="layout__sw">Reload page for updates</BtnLink>
 
         <BookSelector
-          breakpoint={breakpoint}
           className="layout__selector"/>
 
         <BtnLink
@@ -203,7 +199,6 @@ Layout.defaultProps = {
 const mapStateToProps = (store) => {
   return {
     filter: store.app.filter,
-    breakpoint: store.app.breakpoint,
   };
 };
 

@@ -1,0 +1,47 @@
+.large {
+  @include grid(6);
+
+  grid-column-start: var(--column-mobile-start);
+  grid-column-end: span var(--column-mobile-span);
+
+  .text {
+    @include column(3, 4);
+
+    text-align: right;
+  }
+
+  .displayName {
+    @include type-size-tier-four;
+
+    word-spacing: rem(9999px);
+  }
+
+  .name {
+    @include type-size-tier-two;
+  }
+
+  .image {
+    @include column(3, 4);
+  }
+
+  @include breakpoint(tablet) {
+    @include grid;
+
+    grid-column-start: var(--column-start);
+    grid-column-end: span var(--column-span);
+
+    .text {
+      @include column(1, 6);
+
+      padding-top: 12%;
+
+      order: 1;
+    }
+
+    .image {
+      @include column(7, 6);
+
+      order: 2;
+    }
+  }
+}

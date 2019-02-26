@@ -15,8 +15,15 @@ import BtnLink from '../BtnLink/BtnLink';
 
 // CSS, Requires
 import { books, getBookName } from '../../../utils/books';
-import { BREAKPOINTS } from '../../../utils/breakpoints';
 import styles from "./BookSelector.module.scss";
+
+function isDesktop() {
+  if (typeof window === 'undefined') {
+    return true;
+  }
+
+  return window.matchMedia(`(min-width: 768px)`).matches;
+}
 
 class BookSelector extends React.Component {
   state = {
@@ -24,7 +31,7 @@ class BookSelector extends React.Component {
   }
 
   setFilter(filter) {
-    if (this.props.breakpoint < BREAKPOINTS.TABLET) {
+    if (!isDesktop()) {
       this.onDisengage();
     }
 
@@ -52,19 +59,15 @@ class BookSelector extends React.Component {
   }
 
   onMouseEnter = (e) => {
-    if (!this.isMobile()) {
+    if (isDesktop()) {
       this.onEngage();
     }
   }
 
   onMouseLeave = (e) => {
-    if (!this.isMobile()) {
+    if (isDesktop()) {
       this.onDisengage();
     }
-  }
-
-  isMobile() {
-    return this.props.breakpoint < BREAKPOINTS.TABLET;
   }
 
   toggleEngage = () => {
@@ -98,20 +101,21 @@ class BookSelector extends React.Component {
         [styles.engaged]: engaged
       },
       {
-        [styles.mobile]: this.isMobile()
+        [styles.mobile]: isDesktop()
       }
     );
 
     return (
       <div className={cls} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        <ScrollLock isActive={this.isMobile && engaged}/>
-
+        <ScrollLock isActive={!isDesktop() && engaged}/>
 
         <div className={styles.overlay} onClick={this.onDisengage}/>
+
         <BtnLink className={styles.current} onClick={this.toggleEngage}>
           { getBookName(filter) }<br/>
           <span className={styles.currentHook}>{ engaged ? 'Close' : 'Change Book' }</span>
         </BtnLink>
+
         <TouchScrollable>
           <ul className={styles.list}>
             {

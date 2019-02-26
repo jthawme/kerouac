@@ -35,16 +35,22 @@
       ". . . appe appe appe appe appe appe . . .";
   }
 
-  @include breakpoint(desktop) {
-    @include global-padding-top(2);
-    @include grid(12);
-
+  @include breakpoint(laptop) {
     grid-template-areas:
       ". . . image image image image image image . . ."
       ". . . name name name name name name . . ."
       ". . . meta meta meta meta meta meta . . ."
-      ". . . . desc desc desc desc . . . ."
-      ". appe appe appe appe appe appe appe appe appe . .";
+      ". . . desc desc desc desc desc desc . . ."
+      ". appe appe appe appe appe appe appe appe appe appe appe";
+  }
+
+  @include breakpoint(desktop) {
+    grid-template-areas:
+      ". . . image image image image image image . . ."
+      ". . . name name name name name name . . ."
+      ". . . meta meta meta meta meta meta . . ."
+      ". . desc desc desc desc desc desc desc desc . ."
+      ". . appe appe appe appe appe appe appe appe appe .";
   }
 }
 
@@ -86,6 +92,11 @@
       margin: 0;
     }
   }
+
+  @include breakpoint(desktop) {
+    column-count: 2;
+    column-gap: $global-gutter;
+  }
 }
 
 .appearances {
@@ -101,6 +112,10 @@
 
   @include breakpoint(phablet) {
     @include grid(2);
+  }
+
+  @include breakpoint(laptop) {
+    @include grid(3);
   }
 
   @include breakpoint(desktop) {

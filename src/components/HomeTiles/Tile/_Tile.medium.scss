@@ -1,0 +1,91 @@
+.medium {
+  @include grid(6);
+
+  grid-column-start: var(--column-mobile-start);
+  grid-column-end: span var(--column-mobile-span);
+
+  .displayName {
+    @include type-size-tier-four;
+
+    word-spacing: rem(9999px);
+  }
+
+  .name {
+    @include type-size-tier-two;
+  }
+
+  &:nth-child(2n) {
+    margin-top: calc((var(--column-margin) * 4rem) + 2rem);
+
+    .text {
+      @include column(4, 3);
+
+      order: 2;
+    }
+
+    .image {
+      @include column(1, 3);
+
+      order: 1;
+    }
+  }
+
+  &:nth-child(2n + 1) {
+    margin-top: calc((var(--column-margin) * 6rem) + 2rem);
+
+    .text {
+      @include column(1, 3);
+
+      order: 1;
+      text-align: right;
+    }
+
+    .image {
+      @include column(4, 3);
+
+      order: 2;
+    }
+  }
+
+  @include breakpoint(tablet) {
+    @include grid(8);
+
+    &:nth-child(2n) {
+      grid-column-start: calc(var(--column-start) + 1);
+      grid-column-end: span var(--column-span);
+      margin-top: calc((var(--column-margin) * 4rem) + 2rem);
+
+      .text {
+        @include column(5, 4);
+
+        padding-top: 12%;
+        order: 2;
+      }
+
+      .image {
+        @include column(1, 4);
+
+        order: 1;
+      }
+    }
+
+    &:nth-child(2n + 1) {
+      grid-column-start: calc(var(--column-start) + 3);
+      grid-column-end: span var(--column-span);
+      margin-top: calc((var(--column-margin) * 6rem) + 2rem);
+
+      .text {
+        @include column(1, 4);
+
+        order: 1;
+        text-align: right;
+      }
+
+      .image {
+        @include column(5, 4);
+
+        order: 2;
+      }
+    }
+  }
+}

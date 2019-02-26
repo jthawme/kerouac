@@ -15,31 +15,22 @@ import HomeTiles from '../HomeTiles/HomeTiles';
 // CSS, Requires
 import "./Home.scss";
 
-// Struct to help out with the ordering
-export const PRIORITY = {
-  LARGE: 0,
-  MEDIUM: 1,
-  SMALL: 2
-};
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    const { top, list } = this.getList(props.people.list, props.filter);
-
     this.state = {
-      top,
       filter: props.filter,
-      list
+      list: this.getList(props.people.list, props.filter)
     };
   }
 
   componentDidUpdate(oldProps) {
     // Checks if the filter changes to rebuild the list
     if (oldProps.filter !== this.props.filter) {
-      const { top, list } = this.getList(this.props.people.list, this.props.filter);
-      this.setState({ top, list });
+      this.setState({
+        list: this.getList(this.props.people.list, this.props.filter)
+      });
     }
   }
 
@@ -54,21 +45,9 @@ class Home extends React.Component {
   getList(list, filter) {
     const filtered = list.filter((person) => this.filterPeople(person, filter));
 
-    // Needs to work out how many 'top' placed people there are
-    const top = filtered.reduce((prev, curr) => {
-      if (curr.node.priority <= PRIORITY.MEDIUM) {
-        return prev + 1;
-      }
-
-      return prev;
-    }, 0);
-
     filtered.sort(this.orderPeople);
 
-    return {
-      top,
-      list: filtered
-    };
+    return filtered;
   }
 
 
@@ -101,8 +80,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const { className } = this.props;
-    const { top, list } = this.state;
+    const { className, filter } = this.props;
+    const { list } = this.state;
 
     const cls = classNames(
       className,
@@ -115,7 +94,7 @@ class Home extends React.Component {
 
         <HomeTiles
           list={ list }
-          top={ top }/>
+          filter={ filter }/>
       </div>
     );
   }
@@ -133,8 +112,7 @@ Home.defaultProps = {
 
 const mapStateToProps = (store) => {
   return {
-    filter: store.app.filter,
-    breakpoint: store.app.breakpoint
+    filter: store.app.filter
   };
 };
 
