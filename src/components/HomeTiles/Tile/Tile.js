@@ -50,6 +50,7 @@ const getColumnStyle = (priority) => {
 };
 
 const Tile = ({ className, image, displayName, name, slug, priority }) => {
+  console.log(name);
   const style = getColumnStyle(priority);
 
   return (
