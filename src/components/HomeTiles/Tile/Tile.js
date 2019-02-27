@@ -49,14 +49,14 @@ const getColumnStyle = (priority) => {
   }
 };
 
-const Tile = ({ className, image, displayName, name, slug, priority }) => {
-  console.log(name);
+const Tile = ({ className, media, displayName, name, slug, priority }) => {
   const style = getColumnStyle(priority);
+  const { name: imageAlt, image } = media.node;
 
   return (
     <div className={`${styles.root}  ${className} ${styles[PRIORITYCLS[priority]]}`} style={style}>
       <Link to={slug} className={styles.image}>
-        <Img backgroundColor="#000" {...image.large}/>
+        <Img backgroundColor="#000" {...image.large} alt={ imageAlt }/>
       </Link>
       <div className={ styles.text }>
         <Link to={slug} className={ styles.displayName }>{ displayName }</Link>

@@ -15,22 +15,6 @@ export const query = graphql`
       title,
       description,
       location,
-      image {
-        header: childImageSharp {
-          fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true) {
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-            originalImg
-            originalName
-            presentationWidth
-            presentationHeight
-          }
-        }
-      },
       appearances {
         on_the_road
         the_subterraneans
@@ -46,6 +30,27 @@ export const query = graphql`
         tristessa
         satori_in_paris
         the_subterranean
+      },
+      media: image {
+        node: childSourcedYaml {
+          name,
+          image {
+            file: childImageSharp {
+              fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true) {
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+                originalImg
+                originalName
+                presentationWidth
+                presentationHeight
+              }
+            }
+          }
+        }
       }
     }
   }

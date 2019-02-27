@@ -71,7 +71,7 @@ class HomeTiles extends React.Component {
 
   populateList(list, filter) {
     const _list = list.map(l => {
-      const { appearances, fields, image, id, name, priority } = l.node;
+      const { appearances, fields, media, id, name, priority } = l.node;
       const displayName = getCurrentName(appearances, filter, name);
 
       return {
@@ -79,7 +79,7 @@ class HomeTiles extends React.Component {
         displayName,
         name: displayName !== name ? name : false,
         slug: fields.slug,
-        image,
+        media,
         priority
       };
     });

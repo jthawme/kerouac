@@ -21,33 +21,38 @@ export const query = graphql`
         node {
           id,
           priority,
-          image {
-            medium: childImageSharp {
-              fluid(maxWidth: 600, grayscale: true) {
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
-              }
-            },
-            large: childImageSharp {
-              fluid(maxWidth: 1500, grayscale: true) {
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+          media: image {
+            node: childSourcedYaml {
+              name,
+              image {
+                medium: childImageSharp {
+                  fluid(maxWidth: 600, grayscale: true) {
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                },
+                large: childImageSharp {
+                  fluid(maxWidth: 1500, grayscale: true) {
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
               }
             }
           },

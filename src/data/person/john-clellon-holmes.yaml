@@ -1,6 +1,6 @@
 name: John Clellon Holmes
 title: Author & Professor
-image: ../../images/person/john-clellon-holmes.jpg
+image: ../sourced/john-clellon-holmes.yaml
 priority: 2
 location: Holyoke, Massachusetts
 description: >
