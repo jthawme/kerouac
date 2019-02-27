@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 // 3rd Party Modules
 import classNames from 'classnames';
+import { TransitionGroup, Transition } from 'react-transition-group';
 
 // Redux
 
 // Components
-import Tile from './Tile/Tile';
+import Tile, { getColumnStyle } from './Tile/Tile';
 
 // CSS, Requires
 import { getCurrentName } from '../../utils/names';
@@ -56,20 +57,21 @@ function isArrayDiff(stateList, propsList) {
 class HomeTiles extends React.Component {
   state = {
     list: [],
-    filter: false
+    filter: false,
+    loaded: []
   }
 
   componentDidMount() {
-    this.populateList(this.props.list, this.props.filter);
+    this.populateList(this.props.list, this.props.filter, this.startLoading);
   }
 
   componentDidUpdate() {
     if (this.state.filter !== this.props.filter && isArrayDiff(this.state.list, this.props.list)) {
-      this.populateList(this.props.list, this.props.filter);
+      this.populateList(this.props.list, this.props.filter, this.startLoading);
     }
   }
 
-  populateList(list, filter) {
+  populateList(list, filter, cb = () => {}) {
     const _list = list.map(l => {
       const { appearances, fields, media, id, name, priority } = l.node;
       const displayName = getCurrentName(appearances, filter, name);
@@ -80,18 +82,64 @@ class HomeTiles extends React.Component {
         name: displayName !== name ? name : false,
         slug: fields.slug,
         media,
-        priority
+        priority,
+        style: getColumnStyle(priority)
       };
     });
 
     this.setState({
       list: _list,
-      filter
+      filter,
+      loaded: []
+    }, () => {
+      cb();
     });
   }
 
+  startLoading = () => {
+    clearTimeout(this.timer);
+    this.updateLoading();
+  }
+
+  getRandomUnloadedId() {
+    const index = Math.floor(Math.random() * this.state.list.length);
+
+    if (this.state.loaded.indexOf(this.state.list[index].id) >= 0) {
+      return this.getRandomUnloadedId();
+    } else {
+      return this.state.list[index].id;
+    }
+  }
+
+  updateLoading = () => {
+    if (this.state.loaded.length === this.state.list.length) {
+      this.stopLoading();
+    } else {
+      const randomId = this.getRandomUnloadedId();
+      const loaded = this.state.loaded.slice();
+      loaded.push(randomId);
+
+      this.setState({
+        loaded
+      }, () => {
+        const t = Math.random() * 250;
+        this.timer = setTimeout(this.updateLoading, t);
+      });
+    }
+  }
+
+  stopLoading = () => {
+    clearTimeout(this.timer);
+  }
+
   renderTile = (tile, index) => {
-    return <Tile key={ tile.id } index={ index } {...tile}/>
+    return (
+      <Transition
+        timeout={500}
+        key={tile.id}>
+        <Tile key={ tile.id } index={ index } {...tile}/>
+      </Transition>
+    );
   }
 
   render() {
@@ -103,10 +151,14 @@ class HomeTiles extends React.Component {
       styles.root
     );
 
+    if (list.length === 0) {
+      return <TextTiles list={ this.props.list } filter={ this.props.filter }/>;
+    }
+
     return (
-      <div className={cls}>
-        { list.length === 0 ? <TextTiles list={ this.props.list } filter={ this.props.filter }/> : list.map(this.renderTile) }
-      </div>
+      <TransitionGroup className={cls}>
+        {list.map(this.renderTile)}
+      </TransitionGroup>
     );
   }
 }

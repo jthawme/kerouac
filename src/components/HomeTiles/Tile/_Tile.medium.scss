@@ -70,7 +70,7 @@
     }
 
     &:nth-child(2n + 1) {
-      grid-column-start: calc(var(--column-start) + 3);
+      grid-column-start: calc(var(--column-start) + 2);
       grid-column-end: span var(--column-span);
       margin-top: calc((var(--column-margin) * 6rem) + 2rem);
 

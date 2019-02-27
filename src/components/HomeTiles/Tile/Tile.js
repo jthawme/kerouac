@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // 3rd Party Modules
 import Img from 'gatsby-image';
 import { Link } from 'gatsby';
+import classNames from 'classnames';
 
 // Components
 import { PRIORITY } from '../HomeTiles';
@@ -17,7 +18,7 @@ const getRandom = (min, max) => {
   return Math.round((Math.random() * (max - min))) + min;
 };
 
-const getColumnStyle = (priority) => {
+export const getColumnStyle = (priority) => {
   switch (priority) {
     case PRIORITY.LARGE:
       return {
@@ -49,12 +50,17 @@ const getColumnStyle = (priority) => {
   }
 };
 
-const Tile = ({ className, media, displayName, name, slug, priority }) => {
-  const style = getColumnStyle(priority);
+const Tile = ({ className, media, displayName, name, slug, priority, style }) => {
+  const cls = classNames(
+    styles.root,
+    styles[PRIORITYCLS[priority]],
+    className
+  );
+
   const { name: imageAlt, image } = media.node;
 
   return (
-    <div className={`${styles.root}  ${className} ${styles[PRIORITYCLS[priority]]}`} style={style}>
+    <div className={ cls } style={ style }>
       <Link to={slug} className={styles.image}>
         <Img backgroundColor="#000" {...image.large} alt={ imageAlt }/>
       </Link>
