@@ -1,9 +1,10 @@
 import React from "react"
-
-import Home from "../components/Home/Home";
+import PageTransition from 'gatsby-plugin-page-transitions';
 import { graphql } from "gatsby";
 
-const IndexPage = ({ data }) => <Home {...data}/>;
+import Home from "../components/Home/Home";
+
+const IndexPage = ({ data }) => <PageTransition><Home {...data}/></PageTransition>;
 
 export default IndexPage
 

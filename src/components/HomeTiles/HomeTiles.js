@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // 3rd Party Modules
 import classNames from 'classnames';
-import { TransitionGroup, Transition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 // Redux
 
@@ -62,19 +62,21 @@ class HomeTiles extends React.Component {
   }
 
   componentDidMount() {
-    this.populateList(this.props.list, this.props.filter, this.startLoading);
+    this.populateList(this.props.list, this.props.filter);
   }
 
   componentDidUpdate() {
     if (this.state.filter !== this.props.filter && isArrayDiff(this.state.list, this.props.list)) {
-      this.populateList(this.props.list, this.props.filter, this.startLoading);
+      this.populateList(this.props.list, this.props.filter);
     }
   }
 
-  populateList(list, filter, cb = () => {}) {
+  populateList(list, filter) {
     const _list = list.map(l => {
       const { appearances, fields, media, id, name, priority } = l.node;
       const displayName = getCurrentName(appearances, filter, name);
+
+      const old = this.state.list.find(i => i.id === id);
 
       return {
         id,
@@ -83,7 +85,7 @@ class HomeTiles extends React.Component {
         slug: fields.slug,
         media,
         priority,
-        style: getColumnStyle(priority)
+        style: old ? old.style : getColumnStyle(priority)
       };
     });
 
@@ -91,54 +93,29 @@ class HomeTiles extends React.Component {
       list: _list,
       filter,
       loaded: []
-    }, () => {
-      cb();
     });
-  }
-
-  startLoading = () => {
-    clearTimeout(this.timer);
-    this.updateLoading();
-  }
-
-  getRandomUnloadedId() {
-    const index = Math.floor(Math.random() * this.state.list.length);
-
-    if (this.state.loaded.indexOf(this.state.list[index].id) >= 0) {
-      return this.getRandomUnloadedId();
-    } else {
-      return this.state.list[index].id;
-    }
-  }
-
-  updateLoading = () => {
-    if (this.state.loaded.length === this.state.list.length) {
-      this.stopLoading();
-    } else {
-      const randomId = this.getRandomUnloadedId();
-      const loaded = this.state.loaded.slice();
-      loaded.push(randomId);
-
-      this.setState({
-        loaded
-      }, () => {
-        const t = Math.random() * 250;
-        this.timer = setTimeout(this.updateLoading, t);
-      });
-    }
-  }
-
-  stopLoading = () => {
-    clearTimeout(this.timer);
   }
 
   renderTile = (tile, index) => {
     return (
-      <Transition
-        timeout={500}
+      <CSSTransition
+        timeout={{
+          enter: 500,
+          exit: 300
+        }}
+        classNames={{
+          appear: styles.appear,
+          appearActive: styles.appearActive,
+          enter: styles.enter,
+          enterActive: styles.enterActive,
+          enterDone: styles.enterDone,
+          exit: styles.exit,
+          exitActive: styles.exitActive,
+          exitDone: styles.exitDone,
+        }}
         key={tile.id}>
         <Tile key={ tile.id } index={ index } {...tile}/>
-      </Transition>
+      </CSSTransition>
     );
   }
 
@@ -156,7 +133,7 @@ class HomeTiles extends React.Component {
     }
 
     return (
-      <TransitionGroup className={cls}>
+      <TransitionGroup className={ cls }>
         {list.map(this.renderTile)}
       </TransitionGroup>
     );

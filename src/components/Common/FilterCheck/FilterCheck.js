@@ -22,7 +22,13 @@ class FilterCheck extends React.Component {
   }
 
   updateFilter(filter) {
-    navigate(`/#${filter}`);
+    const target = `/#${filter}`;
+    if (window.location.pathname !== '/') {
+      navigate(target);
+    } else {
+      window.history.replaceState({}, null, target);
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    }
   }
 
   render() {

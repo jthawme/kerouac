@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import 'focus-visible';
 import { StaticQuery, graphql } from 'gatsby';
+import smoothscroll from 'smoothscroll-polyfill';
+import Transition from "../Transition/Transition";
 
 // Redux
 import { setFilter } from '../../../state/actions/app';
@@ -37,6 +39,8 @@ class Layout extends React.Component {
 
   componentDidMount() {
     this.addEventListeners();
+
+    smoothscroll.polyfill();
   }
 
   addEventListeners() {
@@ -101,7 +105,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children, filter } = this.props;
+    const { children, filter, location } = this.props;
     const { top, searchBox, sw } = this.state;
 
     const cls = classNames(
@@ -182,7 +186,7 @@ class Layout extends React.Component {
           )}
         />
 
-        { children }
+        <Transition location={location}>{ children }</Transition>
       </div>
     );
   }

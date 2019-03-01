@@ -35,6 +35,7 @@ export const getColumnStyle = (priority) => {
         '--column-margin': (getRandom(1, 10) / 10),
         '--column-mobile-start': 1,
         '--column-mobile-span': 6,
+        '--parallax-random': (getRandom(1, 10) / 10),
       };
     case PRIORITY.SMALL:
     default:
@@ -45,31 +46,36 @@ export const getColumnStyle = (priority) => {
         '--column-phablet-start': getRandom(1, 2),
         '--column-phablet-span': 2,
         '--column-mobile-start': getRandom(1, 3),
-        '--column-mobile-span': 3
+        '--column-mobile-span': 3,
+        '--parallax-random': (getRandom(1, 10) / 10),
       };
   }
 };
 
-const Tile = ({ className, media, displayName, name, slug, priority, style }) => {
-  const cls = classNames(
-    styles.root,
-    styles[PRIORITYCLS[priority]],
-    className
-  );
+class Tile extends React.Component {
+  render() {
+    const { className, media, displayName, name, slug, priority, style } = this.props;
 
-  const { name: imageAlt, image } = media.node;
+    const cls = classNames(
+      styles.root,
+      styles[PRIORITYCLS[priority]],
+      className
+    );
 
-  return (
-    <div className={ cls } style={ style }>
-      <Link to={slug} className={styles.image}>
-        <Img backgroundColor="#000" {...image.large} alt={ imageAlt }/>
-      </Link>
-      <div className={ styles.text }>
-        <Link to={slug} className={ styles.displayName }>{ displayName }</Link>
-        { name ? <Link to={slug} className={ styles.name }>{ name }</Link> : null }
+    const { name: imageAlt, image } = media.node;
+
+    return (
+      <div className={ cls } style={ style }>
+        <Link to={slug} className={styles.image}>
+          <Img backgroundColor="#000" {...image.large} alt={ imageAlt }/>
+        </Link>
+        <div className={ styles.text }>
+          <Link to={slug} className={ styles.displayName }>{ displayName }</Link>
+          { name ? <Link to={slug} className={ styles.name }>{ name }</Link> : null }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Tile.propTypes = {
