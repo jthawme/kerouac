@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // Components
 import { PRIORITY } from '../HomeTiles';
@@ -70,7 +71,21 @@ class Tile extends React.Component {
           <Img backgroundColor="#000" {...image.large} alt={ imageAlt }/>
         </Link>
         <div className={ styles.text }>
-          <Link to={slug} className={ styles.displayName }>{ displayName }</Link>
+          <Link to={slug} className={ styles.displayName }>
+            <TransitionGroup className={ styles.text }>
+              <CSSTransition
+                key={displayName}
+                timeout={500}
+                classNames={{
+                  enter: styles.enter,
+                  enterActive: styles.enterActive,
+                  exit: styles.exit,
+                  exitActive: styles.exitActive
+                }}>
+                <span>{ displayName }</span>
+              </CSSTransition>
+            </TransitionGroup>
+          </Link>
           { name ? <Link to={slug} className={ styles.name }>{ name }</Link> : null }
         </div>
       </div>

@@ -15,12 +15,48 @@
 .text,
 .displayName,
 .name {
+  position: relative;
+
   text-decoration: none;
   color: inherit;
 }
 
 .image {
   display: block;
+}
+
+.enter {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+
+  opacity: 0.01;
+  transform: translate3d(0, -20%, 0);
+}
+.enterActive {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+
+  transition: {
+    duration: 300ms;
+    property: opacity, transform;
+    timing-function: ease-out;
+  }
+}
+.exit {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.exitActive {
+  opacity: 0.01;
+  transform: translate3d(0, 20%, 0);
+
+  transition: {
+    duration: 300ms;
+    property: opacity, transform;
+    timing-function: ease-out;
+  }
 }
 
 @import "Tile.large";

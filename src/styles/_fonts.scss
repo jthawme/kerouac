@@ -1,6 +1,24 @@
 @font-face {
-    font-family: gt-haptik;
-    font-display: auto;
-    src: url("~styles/fonts/GT-Haptik-Medium.otf") format("opentype");
-    font-weight: 500;
+  font-family: 'gt-haptik';
+  font-display: auto;
+  font-weight: 500;
+  src: url("~styles/fonts/GT-Haptik-Medium-2.eot");
+  src:
+    url("~styles/fonts/GT-Haptik-Medium-2.woff2") format("woff2"),
+    url("~styles/fonts/GT-Haptik-Medium-2.woff") format("woff"),
+    url("~styles/fonts/GT-Haptik-Medium-2.eot?#iefix") format("embedded-opentype"),
+    url("~styles/fonts/GT-Haptik-Medium-2.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'gt-haptik';
+  font-display: auto;
+  font-style: italic;
+  font-weight: 500;
+  src: url("~styles/fonts/GT-Haptik-Medium-Rotalic-2.eot");
+  src:
+    url("~styles/fonts/GT-Haptik-Medium-Rotalic-2.woff2") format("woff2"),
+    url("~styles/fonts/GT-Haptik-Medium-Rotalic-2.woff") format("woff"),
+    url("~styles/fonts/GT-Haptik-Medium-Rotalic-2.eot?#iefix") format("embedded-opentype"),
+    url("~styles/fonts/GT-Haptik-Medium-Rotalic-2.ttf") format("truetype");
 }

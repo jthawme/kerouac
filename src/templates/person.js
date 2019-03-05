@@ -1,11 +1,10 @@
 import React from "react"
 
 import { graphql } from "gatsby";
-import PageTransition from 'gatsby-plugin-page-transitions';
 
 import Person from "../components/Person/Person";
 
-const PersonPage = ({ data }) => <PageTransition><Person {...data.person}/></PageTransition>;
+const PersonPage = ({ data }) => <Person {...data.person}/>;
 
 export default PersonPage
 
