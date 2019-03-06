@@ -50,6 +50,10 @@
   @include breakpoint(tablet) {
     @include grid(8);
 
+    .text {
+      padding-top: 12%;
+    }
+
     &:nth-child(2n) {
       grid-column-start: calc(var(--column-start) + 1);
       grid-column-end: span var(--column-span);
@@ -57,8 +61,6 @@
 
       .text {
         @include column(5, 4);
-
-        padding-top: 12%;
         order: 2;
       }
 

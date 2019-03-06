@@ -14,6 +14,8 @@
   opacity: 1;
   visibility: visible;
 
+  cursor: pointer;
+
   transition: {
     duration: 0.5s;
     property: opacity, visibility;
@@ -29,7 +31,7 @@
 .cite {
   @include type-size-tier-four;
 
-  @include breakpoint(desktop) {
+  @include breakpoint(desktopmega) {
     @include type-size-tier-five;
   }
 }
@@ -39,6 +41,14 @@
 
   padding: 0;
   margin: 0;
+
+  @include breakpoint(desktop) {
+    @include column(1, 11);
+  }
+
+  @include breakpoint(desktop) {
+    @include column(1, 9);
+  }
 }
 
 .cite {
@@ -48,4 +58,29 @@
 
   text-align: right;
   font-style: normal;
+}
+
+.helpBox {
+  @include global-top(1.5);
+  @include global-right;
+
+  position: absolute;
+
+  text-align: right;
+
+  transform: translate3d(100%, #{rem(30px)}, 0) rotate(90deg);
+  transform-origin: top left;
+
+  opacity: 0;
+
+  transition: {
+    duration: 1.5s;
+    property: transform, opacity;
+  }
+
+  .help & {
+    transform: translate3d(100%, 0, 0) rotate(90deg);
+
+    opacity: 1;
+  }
 }

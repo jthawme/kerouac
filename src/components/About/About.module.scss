@@ -126,6 +126,14 @@
   }
 
   @include breakpoint(desktop) {
+    @include global-padding-top(3);
+    @include global-padding-bottom;
+
+    &Title,
+    &List {
+      @include column(2, 9);
+    }
+
     &List {
       @include grid(4);
     }

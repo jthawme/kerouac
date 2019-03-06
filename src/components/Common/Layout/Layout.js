@@ -132,6 +132,8 @@ class Layout extends React.Component {
 
     return (
       <div className={cls}>
+        <SEO/>
+
         <FilterCheck filter={ filter }/>
 
         <BtnLink

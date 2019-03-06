@@ -19,15 +19,40 @@ function isDesktop() {
   return (window.matchMedia(`(min-width: 768px)`).matches);
 }
 
+function getTimeout() {
+  const visited = localStorage.getItem('visited');
+
+  if (visited && visited >= 4) {
+    return 2000;
+  } else if (visited && visited >= 0) {
+    return 4000;
+  } else {
+    return 8000;
+  }
+}
+
+function advanceVisited() {
+  localStorage.setItem('visited', localStorage.getItem('visited') ? localStorage.getItem('visited') + 1 : 0);
+}
+
 class FullQuote extends React.Component {
   state = {
-    hide: false
+    hide: false,
+    help: false
   }
 
   componentDidMount() {
     this.timer = setTimeout(() => {
       this.onHide();
-    }, 2000);
+    }, getTimeout());
+
+    setTimeout(() => {
+      this.setState({
+        help: true
+      });
+    }, 3000);
+
+    advanceVisited();
   }
 
   componentWillUnmount() {
@@ -42,13 +67,16 @@ class FullQuote extends React.Component {
 
   render() {
     const { className } = this.props;
-    const { hide } = this.state;
+    const { hide, help } = this.state;
 
     const cls = classNames(
       className,
       styles.root,
       {
         [styles.hide]: hide
+      },
+      {
+        [styles.help]: help
       }
     );
 
@@ -67,6 +95,7 @@ class FullQuote extends React.Component {
         <cite className={styles.cite}>
           Jack Kerouac
         </cite>
+        <span className={styles.helpBox}>Click anywhere</span>
       </div>
     );
   }

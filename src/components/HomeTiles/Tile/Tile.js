@@ -72,7 +72,7 @@ class Tile extends React.Component {
         </Link>
         <div className={ styles.text }>
           <Link to={slug} className={ styles.displayName }>
-            <TransitionGroup className={ styles.text }>
+            <TransitionGroup>
               <CSSTransition
                 key={displayName}
                 timeout={500}
