@@ -32,12 +32,27 @@ export const query = graphql`
         satori_in_paris
         the_subterranean
       },
+      imagePos,
       media: image {
         node: childSourcedYaml {
           name,
           image {
             file: childImageSharp {
-              fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true) {
+              fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true, cropFocus: NORTH) {
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+                originalImg
+                originalName
+                presentationWidth
+                presentationHeight
+              }
+            },
+            southFile: childImageSharp {
+              fluid(maxWidth: 1600, maxHeight: 1100, grayscale: true, cropFocus: SOUTH) {
                 aspectRatio
                 src
                 srcSet

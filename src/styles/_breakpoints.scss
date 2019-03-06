@@ -1,6 +1,8 @@
 $desktop: rem(1280);
 $laptop: rem(950);
+$tabletlarge: rem(850);
 $tablet: rem(768);
+$phabletlarge: rem(640);
 $phablet: rem(480);
 $mobileup: rem(320);
 
@@ -14,6 +16,12 @@ $mobileup: rem(320);
     @else if $point == tablet {
      @media (min-width: $tablet) { @content ; }
   }
+    @else if $point == tabletlarge {
+     @media (min-width: $tabletlarge) { @content ; }
+  }
+  @else if $point == phabletlarge {
+   @media (min-width: $phabletlarge) { @content ; }
+}
    @else if $point == phablet {
      @media (min-width: $phablet)  { @content ; }
   }

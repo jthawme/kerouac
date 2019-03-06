@@ -1,0 +1,51 @@
+@import '../../styles/base';
+
+.root {
+  @include global-padding-top;
+  @include global-padding-right;
+  @include global-padding-bottom;
+  @include global-padding-left;
+
+  @include grid;
+
+  grid-template-rows: auto auto;
+  font-family: inherit;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition: {
+    duration: 0.5s;
+    property: opacity, visibility;
+  }
+}
+
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.quote,
+.cite {
+  @include type-size-tier-four;
+
+  @include breakpoint(desktop) {
+    @include type-size-tier-five;
+  }
+}
+
+.quote {
+  @include column(1, 9);
+
+  padding: 0;
+  margin: 0;
+}
+
+.cite {
+  @include column(4, 9);
+
+  align-self: flex-end;
+
+  text-align: right;
+  font-style: normal;
+}

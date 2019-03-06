@@ -1,0 +1,17 @@
+runtime: php72
+
+handlers:
+- url: /sw.js
+  static_files: sw.js
+  upload: sw.js
+  secure: always
+
+- url: /
+  static_files: index.html
+  upload: index.html
+  secure: always
+
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
+  secure: always

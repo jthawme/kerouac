@@ -11,9 +11,6 @@
 }
 
 .current {
-  @include global-top(3);
-  @include global-left;
-
   position: fixed;
 
   z-index: 2;
@@ -33,6 +30,7 @@
     position: absolute;
 
     top: calc(100% + #{rem(2px)});
+    left: 0;
 
     color: var(--color-text-light);
 
@@ -40,13 +38,15 @@
       display: none;
     }
 
-    @include breakpoint(phablet) {
-      position: relative;
+    .root:not(.touch) & {
+      @include breakpoint(phablet) {
+        position: relative;
 
-      display: block;
-
-      .engaged & {
         display: block;
+
+        .engaged & {
+          display: block;
+        }
       }
     }
   }
@@ -57,8 +57,10 @@
     transform: rotate(-90deg) translate3d(#{rem(60px)},0,0);
   }
 
-  @include breakpoint(tablet) {
-    display: none;
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      display: none;
+    }
   }
 }
 
@@ -105,18 +107,20 @@
     left: calc(#{$global-mobile-padding} + (#{ getColWidth(1) }));
   }
 
-  @include breakpoint(tablet) {
-    @include global-padding-top(0);
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      @include global-padding-top(0);
 
-    top: 50%;
-    left: 0;
+      top: 50%;
+      left: 0;
 
-    height: auto;
+      height: auto;
 
-    transform: translate3d(0, -50%, 0);
+      transform: translate3d(0, -50%, 0);
 
-    opacity: 1;
-    visibility: visible;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -133,14 +137,16 @@
     @include global-margin-bottom(0.5);
   }
 
-  @include breakpoint(tablet) {
-    @include global-margin-bottom(0);
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      @include global-margin-bottom(0);
 
-    &:not(.active):hover,
-    &:not(.active) .button:focus,
-    &:not(.active) .button:active {
-      .line {
-        transform: scaleX(0.75);
+      &:not(.active):hover,
+      &:not(.active) .button:focus,
+      &:not(.active) .button:active {
+        .line {
+          transform: scaleX(0.75);
+        }
       }
     }
   }
@@ -162,34 +168,38 @@
     pointer-events: all;
   }
 
-  @include breakpoint(tablet) {
-    padding: rem($global-gutter / 4) 0;
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      padding: rem($global-gutter / 4) 0;
+    }
   }
 }
 
 .line {
   display: none;
 
-  @include breakpoint(tablet) {
-    display: block;
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      display: block;
 
-    width: calc(#{rem($global-padding)} - #{rem($global-gutter)});
-    height: rem(1px);
+      width: calc(#{rem($global-padding)} - #{rem($global-gutter)});
+      height: rem(1px);
 
-    margin-right: rem($global-gutter);
+      margin-right: rem($global-gutter);
 
-    background: currentColor;
+      background: currentColor;
 
-    transform: scaleX(0.5);
-    transform-origin: center right;
+      transform: scaleX(0.5);
+      transform-origin: center right;
 
-    transition: {
-      duration: 0.25s;
-      property: transform;
-    }
+      transition: {
+        duration: 0.25s;
+        property: transform;
+      }
 
-    .active & {
-      transform: scaleX(1);
+      .active & {
+        transform: scaleX(1);
+      }
     }
   }
 }
@@ -206,16 +216,18 @@
     @include type-size-tier-three;
   }
 
-  @include breakpoint(tablet) {
-    @include type-size-tier-one;
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      @include type-size-tier-one;
 
-    opacity: 0;
-
-    .active &,
-    .engaged & {
-      opacity: 1;
+      opacity: 0;
     }
   }
+}
+
+.root:not(.touch) .active .label,
+.root:not(.touch).engaged .label {
+  opacity: 1;
 }
 
 .overlay {
@@ -242,7 +254,9 @@
     visibility: visible;
   }
 
-  @include breakpoint(tablet) {
-    display: none;
+  .root:not(.touch) & {
+    @include breakpoint(tablet) {
+      display: none;
+    }
   }
 }

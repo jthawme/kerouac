@@ -103,8 +103,13 @@
     text-align: left;
   }
 
-  @include breakpoint(phablet) {
+  &Item {
+    @include global-margin-bottom(0.5);
+  }
+
+  @include breakpoint(phabletlarge) {
     &List {
+      @include column(2, 4);
       @include grid(2);
     }
   }
@@ -112,7 +117,7 @@
   @include breakpoint(tablet) {
     &Title,
     &List {
-      @include column(2, 10);
+      @include column(3, 9);
     }
 
     &List {

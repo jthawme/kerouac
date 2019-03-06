@@ -7,7 +7,8 @@
   &__logo,
   &__link,
   &__selector,
-  &__sw {
+  &__sw,
+  &__quote {
     position: fixed;
 
     z-index: 10;
@@ -91,5 +92,14 @@
       opacity: 1;
       visibility: visible;
     }
+  }
+
+  &__quote {
+    z-index: 100;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: white;
   }
 }

@@ -24,6 +24,15 @@
   }
 
   @include breakpoint(tablet) {
+    grid-template-areas:
+    ". image image image image ."
+    ". name name name name ."
+    ". meta meta meta meta ."
+    ". desc desc desc desc ."
+    ". appe appe appe appe .";
+  }
+
+  @include breakpoint(laptop) {
     @include global-padding-top(2);
     @include grid(12);
 
@@ -33,15 +42,6 @@
       ". . . meta meta meta meta meta meta . . ."
       ". . . desc desc desc desc desc desc . . ."
       ". . . appe appe appe appe appe appe . . .";
-  }
-
-  @include breakpoint(laptop) {
-    grid-template-areas:
-      ". . . image image image image image image . . ."
-      ". . . name name name name name name . . ."
-      ". . . meta meta meta meta meta meta . . ."
-      ". . . desc desc desc desc desc desc . . ."
-      ". appe appe appe appe appe appe appe appe appe appe appe";
   }
 
   @include breakpoint(desktop) {
@@ -115,7 +115,7 @@
   }
 
   @include breakpoint(laptop) {
-    @include grid(3);
+    @include grid(2);
   }
 
   @include breakpoint(desktop) {
@@ -140,17 +140,7 @@
     text-align: left;
   }
 
-  @include breakpoint(tablet) {
-    &Name {
-      @include type-size-tier-two;
-    }
-
-    &Book {
-      color: var(--color-text-light);
-    }
-  }
-
-  @include breakpoint(laptop) {
+  @include breakpoint(desktop) {
     &Name {
       @include type-size-tier-three;
     }

@@ -13,8 +13,8 @@ import BtnLink from '../Common/BtnLink/BtnLink';
 import styles from "./About.module.scss";
 
 const renderSource = ({ node }) => (
-  <div key={node.name}>
-    <BtnLink className={styles.sourcesLink}>{ node.name }</BtnLink>
+  <div key={node.name} className={styles.sourcesItem}>
+    <BtnLink className={styles.sourcesLink} to={`${node.source}?ref=friends-of-kerouac`}>{ node.name }</BtnLink>
   </div>
 );
 
@@ -25,7 +25,8 @@ const About = () => (
         sources: allSourcedYaml {
           edges {
             node {
-              name
+              name,
+              source
             }
           }
         },

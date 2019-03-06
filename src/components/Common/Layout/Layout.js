@@ -18,6 +18,8 @@ import BtnLink from '../BtnLink/BtnLink';
 import BookSelector from '../BookSelector/BookSelector';
 import Search from '../../Search/Search';
 import FilterCheck from '../FilterCheck/FilterCheck';
+import FullQuote from '../../FullQuote/FullQuote';
+import SEO from '../SEO/SEO';
 
 // CSS, Requires
 import "./Layout.scss";
@@ -41,6 +43,7 @@ class Layout extends React.Component {
     this.addEventListeners();
 
     smoothscroll.polyfill();
+    this.checkTouch();
   }
 
   addEventListeners() {
@@ -77,6 +80,13 @@ class Layout extends React.Component {
     }
   };
 
+  checkTouch() {
+    const isTouch = ('ontouchstart' in document.documentElement);
+    document.body.classList.toggle('touch', isTouch);
+
+    this.setState({ isTouch });
+  }
+
   getLink(path) {
     switch (path) {
       case 'about':
@@ -106,7 +116,7 @@ class Layout extends React.Component {
 
   render() {
     const { children, filter, location } = this.props;
-    const { top, searchBox, sw } = this.state;
+    const { top, searchBox, sw, isTouch } = this.state;
 
     const cls = classNames(
       'layout',
@@ -135,6 +145,7 @@ class Layout extends React.Component {
         <BtnLink onClick={() => window.location.reload()} className="layout__sw">Reload page for updates</BtnLink>
 
         <BookSelector
+          touch={isTouch}
           className="layout__selector"/>
 
         <BtnLink
@@ -142,6 +153,8 @@ class Layout extends React.Component {
           to={ href }>
           { text }
         </BtnLink>
+
+        <FullQuote className="layout__quote"/>
 
         <StaticQuery
           query={graphql`

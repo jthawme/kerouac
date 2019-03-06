@@ -22,7 +22,7 @@ function isDesktop() {
     return true;
   }
 
-  return window.matchMedia(`(min-width: 768px)`).matches;
+  return (window.matchMedia(`(min-width: 768px)`).matches);
 }
 
 class BookSelector extends React.Component {
@@ -31,7 +31,7 @@ class BookSelector extends React.Component {
   }
 
   setFilter(filter) {
-    if (!isDesktop()) {
+    if (!isDesktop() || this.props.touch) {
       this.onDisengage();
     }
 
@@ -59,13 +59,13 @@ class BookSelector extends React.Component {
   }
 
   onMouseEnter = (e) => {
-    if (isDesktop()) {
+    if (isDesktop() && !this.props.touch) {
       this.onEngage();
     }
   }
 
   onMouseLeave = (e) => {
-    if (isDesktop()) {
+    if (isDesktop() && !this.props.touch) {
       this.onDisengage();
     }
   }
@@ -91,7 +91,7 @@ class BookSelector extends React.Component {
   }
 
   render() {
-    const { className, filter } = this.props;
+    const { className, filter, touch } = this.props;
     const { engaged } = this.state;
 
     const cls = classNames(
@@ -102,12 +102,15 @@ class BookSelector extends React.Component {
       },
       {
         [styles.mobile]: isDesktop()
+      },
+      {
+        [styles.touch]: touch
       }
     );
 
     return (
       <div className={cls} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        <ScrollLock isActive={!isDesktop() && engaged}/>
+        <ScrollLock isActive={(!isDesktop() || touch) && engaged}/>
 
         <div className={styles.overlay} onClick={this.onDisengage}/>
 

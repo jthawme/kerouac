@@ -35,8 +35,17 @@ class Person extends React.Component {
     });
   }
 
+  renderImage({ node }, imagePos) {
+
+    if (imagePos === 'south') {
+      return <Img backgroundColor={'#000'} className={styles.image} alt={node.name} {...node.image.southFile}/>;
+    }
+
+    return <Img backgroundColor={'#000'} className={styles.image} alt={node.name} {...node.image.file}/>;
+  }
+
   render() {
-    const { className, media, name, title, location, description, appearances } = this.props;
+    const { className, media, name, title, location, description, appearances, imagePos } = this.props;
 
     const cls = classNames(
       className,
@@ -47,7 +56,7 @@ class Person extends React.Component {
       <div className={cls}>
         <SEO
           title={name}/>
-        <Img backgroundColor={'#000'} className={styles.image} alt={media.node.name} {...media.node.image.file}/>
+        { this.renderImage(media, imagePos) }
         <h1 className={styles.name}>{ name }</h1>
         <p className={styles.meta}>
           { location }<br/>
