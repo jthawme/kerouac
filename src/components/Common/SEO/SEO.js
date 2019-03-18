@@ -3,8 +3,6 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { StaticQuery, graphql } from "gatsby"
 
-const socialImg = 'https://friendsofkerouac.com/social.png';
-
 function SEO({ description, lang, meta, keywords, title }) {
   return (
     <StaticQuery
@@ -39,7 +37,7 @@ function SEO({ description, lang, meta, keywords, title }) {
               },
               {
                 property: `og:image`,
-                content: socialImg,
+                content: data.site.siteMetadata.image,
               },
               {
                 name: `twitter:card`,
@@ -59,7 +57,7 @@ function SEO({ description, lang, meta, keywords, title }) {
               },
               {
                 property: `twitter:image`,
-                content: socialImg,
+                content: data.site.siteMetadata.image,
               },
             ]
               .concat(
@@ -101,6 +99,7 @@ const detailsQuery = graphql`
         title
         description
         author
+        image
       }
     }
   }

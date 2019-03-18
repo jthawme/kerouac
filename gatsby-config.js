@@ -3,7 +3,8 @@ module.exports = {
     title: `Friends of Kerouac`,
     description: `Learn about the people who made up the Beat Generation in Kerouac's The Duluoz Legend.`,
     author: `@jthawme`,
-    keywords: ['Beat Generation', 'Beatnik', 'Jack Kerouac', 'Kerouac', 'On the Road', 'Dean Moriarty', 'Neal Cassady', 'Allen Ginsberg']
+    keywords: ['Beat Generation', 'Beatnik', 'Jack Kerouac', 'Kerouac', 'On the Road', 'Dean Moriarty', 'Neal Cassady', 'Allen Ginsberg'],
+    image: '/images/social.png'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
