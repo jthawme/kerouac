@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 // 3rd Party Modules
-import classNames from 'classnames';
-import { Link } from 'gatsby';
+import classNames from "classnames";
+import { Link } from "gatsby";
 
 // Redux
 
 // Components
-import BtnLink from '../Common/BtnLink/BtnLink';
+import BtnLink from "../Common/BtnLink/BtnLink";
 
 // CSS, Requires
 import "./Search.scss";
-import { books } from '../../utils/books';
+import { books } from "../../utils/books";
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: '',
+      text: "",
       ready: false,
       searchOptions: []
     };
@@ -37,46 +37,58 @@ class Search extends React.Component {
         searchOptions: this.createSearchOptions(this.props.people, books)
       });
     }
+
+    if (this.props.open && !oldProps.open) {
+      plausible("Search");
+    }
   }
 
   addEventListeners() {
-    document.addEventListener('keyup', (e) => {
-      if (this.isStartingKey(e.key) && !this.state.ready) {
-        this.setState({
-          text: this.state.text + e.key
-        });
+    document.addEventListener(
+      "keyup",
+      e => {
+        if (this.isStartingKey(e.key) && !this.state.ready) {
+          this.setState({
+            text: this.state.text + e.key
+          });
 
-        if (!this.props.open) {
-          this.props.onRequestOpen();
+          if (!this.props.open) {
+            this.props.onRequestOpen();
+          }
+        } else if (e.key === "Escape" && this.state.ready && this.props.open) {
+          this.props.onRequestClose();
         }
-      } else if (e.key === 'Escape' && this.state.ready && this.props.open) {
-        this.props.onRequestClose();
-      }
-    }, false);
+      },
+      false
+    );
   }
 
   createSearchOptions(people, books) {
-    const _people = people.edges.map(({ node }) => {
-      const characters = Object.keys(node.appearances).map(key => {
-        if (node.appearances[key]) {
-          return {
-            type: 'Character',
-            label: node.appearances[key],
+    const _people = people.edges
+      .map(({ node }) => {
+        const characters = Object.keys(node.appearances)
+          .map(key => {
+            if (node.appearances[key]) {
+              return {
+                type: "Character",
+                label: node.appearances[key],
+                slug: node.fields.slug
+              };
+            }
+
+            return null;
+          })
+          .filter(v => v);
+
+        return [
+          {
+            type: "Person",
+            label: node.name,
             slug: node.fields.slug
-          };
-        }
-
-        return null;
-      }).filter(v => v);
-
-      return [
-        {
-          type: 'Person',
-          label: node.name,
-          slug: node.fields.slug
-        }
-      ].concat(characters);
-    }).flat();
+          }
+        ].concat(characters);
+      })
+      .flat();
 
     const _uniquePeople = [];
     _people.forEach(p => {
@@ -87,10 +99,10 @@ class Search extends React.Component {
 
     const _books = Object.keys(books).map(b => {
       return {
-        type: 'Book',
+        type: "Book",
         label: books[b],
         slug: b
-      }
+      };
     });
 
     const _list = _uniquePeople.concat(_books);
@@ -109,26 +121,26 @@ class Search extends React.Component {
   }
 
   isStartingKey(key) {
-    return (key.length === 1 && key.match(/^[a-z0-9]+$/i));
+    return key.length === 1 && key.match(/^[a-z0-9]+$/i);
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       text: e.target.value
     });
-  }
+  };
 
   onFocus = () => {
     this.setState({
       focused: true
     });
-  }
+  };
 
   onBlur = () => {
     this.setState({
       focused: false
     });
-  }
+  };
 
   onTransitionEnd = () => {
     this.setState({
@@ -139,64 +151,64 @@ class Search extends React.Component {
       this.inputRef.current.focus();
     } else {
       this.setState({
-        text: ''
+        text: ""
       });
     }
-  }
+  };
 
   onResultClicked = () => {
     this.props.onRequestClose();
-  }
+  };
 
   renderSearch = (opt, index) => {
-    if (opt.type === 'Book') {
+    if (opt.type === "Book") {
       const onClick = () => {
         this.onResultClicked();
-        this.props.onSetFilter(opt.slug)
+        this.props.onSetFilter(opt.slug);
       };
 
       return (
         <li className="search-item" key={index}>
           <button className="search-item__link" onClick={onClick}>
-            <p className="search-item__title">{ opt.label }</p>
-            <p className="search-item__type">{ opt.type }</p>
+            <p className="search-item__title">{opt.label}</p>
+            <p className="search-item__type">{opt.type}</p>
           </button>
         </li>
-      )
+      );
     } else {
       return (
         <li className="search-item" key={index}>
-          <Link className="search-item__link" to={opt.slug} onClick={this.onResultClicked}>
-            <p className="search-item__title">{ opt.label }</p>
-            <p className="search-item__type">{ opt.type }</p>
+          <Link
+            className="search-item__link"
+            to={opt.slug}
+            onClick={this.onResultClicked}
+          >
+            <p className="search-item__title">{opt.label}</p>
+            <p className="search-item__type">{opt.type}</p>
           </Link>
         </li>
-      )
+      );
     }
-  }
+  };
 
   render() {
     const { className, open, onRequestClose } = this.props;
     const { text, searchOptions } = this.state;
 
-    const cls = classNames(
-      className,
-      'search',
-      {
-        'search--open': open
-      }
-    );
+    const cls = classNames(className, "search", {
+      "search--open": open
+    });
 
     const filtered = searchOptions.filter(opt => {
-      return opt.label.toLowerCase().includes(text.toLowerCase())
+      return opt.label.toLowerCase().includes(text.toLowerCase());
     });
 
     return (
       <section className={cls} onTransitionEnd={this.onTransitionEnd}>
         <h1 className="search__title">Search</h1>
-        <BtnLink
-          className="search__close"
-          onClick={onRequestClose}>Close search</BtnLink>
+        <BtnLink className="search__close" onClick={onRequestClose}>
+          Close search
+        </BtnLink>
 
         <div className="search__content">
           <div className="search__content__input-box">
@@ -208,10 +220,11 @@ class Search extends React.Component {
               onChange={this.onChange}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
-              placeholder="Search"/>
+              placeholder="Search"
+            />
           </div>
           <ul className="search__content__results">
-            { filtered.map(this.renderSearch) }
+            {filtered.map(this.renderSearch)}
           </ul>
         </div>
       </section>

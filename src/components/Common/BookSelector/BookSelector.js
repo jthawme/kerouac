@@ -1,34 +1,34 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 // 3rd Party Modules
-import classNames from 'classnames';
-import { bindActionCreators } from 'redux';
-import ScrollLock, { TouchScrollable } from 'react-scrolllock';
+import classNames from "classnames";
+import { bindActionCreators } from "redux";
+import ScrollLock, { TouchScrollable } from "react-scrolllock";
 
 // Redux
-import { setFilter } from '../../../state/actions/app';
+import { setFilter } from "../../../state/actions/app";
 
 // Components
-import BtnLink from '../BtnLink/BtnLink';
+import BtnLink from "../BtnLink/BtnLink";
 
 // CSS, Requires
-import { books, getBookName } from '../../../utils/books';
+import { books, getBookName } from "../../../utils/books";
 import styles from "./BookSelector.module.scss";
 
 function isDesktop() {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return true;
   }
 
-  return (window.matchMedia(`(min-width: 768px)`).matches);
+  return window.matchMedia(`(min-width: 768px)`).matches;
 }
 
 class BookSelector extends React.Component {
   state = {
     engaged: false
-  }
+  };
 
   setFilter(filter) {
     if (!isDesktop() || this.props.touch) {
@@ -38,37 +38,38 @@ class BookSelector extends React.Component {
     this.props.setFilter(filter);
   }
 
-  renderBook = (book) => {
-    const cls = classNames(
-      styles.item,
-      {
-        [styles.active]: this.props.filter === book
-      }
-    );
+  renderBook = book => {
+    const cls = classNames(styles.item, {
+      [styles.active]: this.props.filter === book
+    });
 
     return (
       <li key={book} className={cls}>
-        <button className={styles.button} onClick={() => this.setFilter(book)}>
-          <span className={styles.line}/>
-          <span className={styles.label}>
-            {books[book]}
-          </span>
+        <button
+          className={styles.button}
+          onClick={() => {
+            this.setFilter(book);
+            plausible("Book", { props: { book } });
+          }}
+        >
+          <span className={styles.line} />
+          <span className={styles.label}>{books[book]}</span>
         </button>
       </li>
-    )
-  }
+    );
+  };
 
-  onMouseEnter = (e) => {
+  onMouseEnter = e => {
     if (isDesktop() && !this.props.touch) {
       this.onEngage();
     }
-  }
+  };
 
-  onMouseLeave = (e) => {
+  onMouseLeave = e => {
     if (isDesktop() && !this.props.touch) {
       this.onDisengage();
     }
-  }
+  };
 
   toggleEngage = () => {
     if (this.state.engaged) {
@@ -76,19 +77,19 @@ class BookSelector extends React.Component {
     } else {
       this.onEngage();
     }
-  }
+  };
 
-  onEngage = (e) => {
+  onEngage = e => {
     this.setState({
       engaged: true
     });
-  }
+  };
 
-  onDisengage = (e) => {
+  onDisengage = e => {
     this.setState({
       engaged: false
     });
-  }
+  };
 
   render() {
     const { className, filter, touch } = this.props;
@@ -109,21 +110,25 @@ class BookSelector extends React.Component {
     );
 
     return (
-      <div className={cls} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        <ScrollLock isActive={(!isDesktop() || touch) && engaged}/>
+      <div
+        className={cls}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+      >
+        <ScrollLock isActive={(!isDesktop() || touch) && engaged} />
 
-        <div className={styles.overlay} onClick={this.onDisengage}/>
+        <div className={styles.overlay} onClick={this.onDisengage} />
 
         <BtnLink className={styles.current} onClick={this.toggleEngage}>
-          { getBookName(filter) }
-          <span className={styles.currentHook}>{ engaged ? 'Close' : 'Change Book' }</span>
+          {getBookName(filter)}
+          <span className={styles.currentHook}>
+            {engaged ? "Close" : "Change Book"}
+          </span>
         </BtnLink>
 
         <TouchScrollable>
           <ul className={styles.list}>
-            {
-              Object.keys(books).map(this.renderBook)
-            }
+            {Object.keys(books).map(this.renderBook)}
           </ul>
         </TouchScrollable>
       </div>
@@ -139,16 +144,19 @@ BookSelector.defaultProps = {
   className: null
 };
 
-const mapStateToProps = (store) => {
+const mapStateToProps = store => {
   return {
     filter: store.app.filter
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setFilter
-  }, dispatch);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      setFilter
+    },
+    dispatch
+  );
 };
 
 export default connect(
